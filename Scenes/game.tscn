@@ -1,0 +1,158 @@
+[gd_scene load_steps=5 format=3 uid="uid://bkavuebbvjrsw"]
+
+[ext_resource type="PackedScene" uid="uid://ck0i6vvuk5l4d" path="res://Objects/letter.tscn" id="1_4je66"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rs4sq"]
+bg_color = Color(0.0941176, 0.0901961, 0.0901961, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_we42l"]
+bg_color = Color(0.223529, 0.223529, 0.207843, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7ll2"]
+bg_color = Color(0.713726, 0.54902, 0.584314, 1)
+
+[node name="Game" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rs4sq")
+
+[node name="MarginContainer" type="MarginContainer" parent="Background"]
+layout_mode = 2
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 15
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 15
+
+[node name="Rows" type="VBoxContainer" parent="Background/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 15
+
+[node name="LedgerLineContainer" type="PanelContainer" parent="Background/MarginContainer/Rows"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_we42l")
+
+[node name="LedgerLines" type="HBoxContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Zone1" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone2" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone3" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone4" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone5" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone6" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone7" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone8" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone9" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone10" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="TargetZones" type="HBoxContainer" parent="Background/MarginContainer/Rows"]
+custom_minimum_size = Vector2(0, 60)
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="Zone1" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone2" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone3" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone4" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone5" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone6" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone7" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone8" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone9" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Zone10" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="Letter" parent="." instance=ExtResource("1_4je66")]
+layout_mode = 0

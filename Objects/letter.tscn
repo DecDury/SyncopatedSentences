@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://ck0i6vvuk5l4d"]
+
+[ext_resource type="FontFile" uid="uid://crdlyccmbma4o" path="res://Fonts/special-elite/SpecialElite.ttf" id="1_cmx3n"]
+
+[node name="Letter" type="RichTextLabel"]
+offset_left = 26.0
+offset_top = 576.0
+offset_right = 101.0
+offset_bottom = 651.0
+theme_override_fonts/normal_font = ExtResource("1_cmx3n")
+theme_override_font_sizes/normal_font_size = 75
+bbcode_enabled = true
+text = "[center]M[/center]"
+scroll_active = false
