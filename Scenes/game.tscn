@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkavuebbvjrsw"]
+[gd_scene load_steps=6 format=3 uid="uid://bkavuebbvjrsw"]
 
-[ext_resource type="PackedScene" uid="uid://ck0i6vvuk5l4d" path="res://Objects/letter.tscn" id="1_4je66"]
+[ext_resource type="Script" path="res://Scenes/game.gd" id="1_c3snr"]
+[ext_resource type="PackedScene" uid="uid://bths3dxms243" path="res://Objects/letter.tscn" id="2_31xfh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rs4sq"]
 bg_color = Color(0.0941176, 0.0901961, 0.0901961, 1)
@@ -18,6 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_c3snr")
 
 [node name="Background" type="PanelContainer" parent="."]
 layout_mode = 1
@@ -154,5 +156,44 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
 
-[node name="Letter" parent="." instance=ExtResource("1_4je66")]
-layout_mode = 0
+[node name="LetterContainer" type="Node2D" parent="."]
+
+[node name="Letter" parent="LetterContainer" instance=ExtResource("2_31xfh")]
+position = Vector2(35, 28)
+
+[node name="SpawnContainer" type="Node2D" parent="."]
+
+[node name="SpawnPoint1" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(64, 0)
+
+[node name="SpawnPoint2" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(176, 0)
+
+[node name="SpawnPoint3" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(288, 0)
+
+[node name="SpawnPoint4" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(400, 0)
+
+[node name="SpawnPoint5" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(515, 0)
+
+[node name="SpawnPoint6" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(613, 0)
+
+[node name="SpawnPoint7" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(742, 0)
+
+[node name="SpawnPoint8" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(850, 0)
+
+[node name="SpawnPoint9" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(961, 0)
+
+[node name="SpawnPoint10" type="Marker2D" parent="SpawnContainer"]
+position = Vector2(1085, 0)
+
+[node name="SpawnTimer" type="Timer" parent="."]
+wait_time = 3.0
+
+[connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

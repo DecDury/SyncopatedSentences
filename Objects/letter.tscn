@@ -1,12 +1,24 @@
-[gd_scene load_steps=2 format=3 uid="uid://ck0i6vvuk5l4d"]
+[gd_scene load_steps=3 format=3 uid="uid://bths3dxms243"]
 
 [ext_resource type="FontFile" uid="uid://crdlyccmbma4o" path="res://Fonts/special-elite/SpecialElite.ttf" id="1_cmx3n"]
+[ext_resource type="Script" path="res://Objects/letter.gd" id="1_yqdl8"]
 
-[node name="Letter" type="RichTextLabel"]
-offset_left = 26.0
-offset_top = 576.0
-offset_right = 101.0
-offset_bottom = 651.0
+[node name="Letter" type="Node2D"]
+position = Vector2(36, 15)
+script = ExtResource("1_yqdl8")
+
+[node name="text" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -30.0
+offset_top = -30.0
+offset_right = 30.0
+offset_bottom = 30.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("1_cmx3n")
 theme_override_font_sizes/normal_font_size = 75
 bbcode_enabled = true
