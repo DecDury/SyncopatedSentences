@@ -1,12 +1,16 @@
 extends Node2D
 
 @onready var character = $text.text
-
 @export var speed: float = 0.5
 
+func set_character(inputChar: String):
+	print("Setting character to %s" % inputChar)
+	character = inputChar
+	$text.text = inputChar
+
 func get_character() -> String:
-		return character
-		
+	return character
+	
 func change_color(color: Color):
 	$text.text = "[center][color=%s]%s[/color][/center]" % [color, self.text]
 
