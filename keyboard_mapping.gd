@@ -22,8 +22,8 @@ var horiz_mapping = [
 func getLetterForColumn(col: int) -> String:
 	var colString = vert_mapping[0]
 	if col >= vert_mapping.size():
-		print("Column Number: out of bounds, got %s" % col)
-		return "%s" % col
+		print("Column Number: out of bounds, got %d" % col)
+		return "%d" % col
 	else:
 		colString = vert_mapping[col]
 		var letterIndex = randi() % colString.length()
@@ -35,8 +35,8 @@ func getLetterForColumn(col: int) -> String:
 func getLetterForRow(row: int) -> String:
 	var rowString = horiz_mapping[0]
 	if row >= horiz_mapping.size():
-		print("Row Number: out of bounds, got %s" % row)
-		return "%s" % row
+		print("Row Number: out of bounds, got %d" % row)
+		return "%d" % row
 	else:
 		rowString = horiz_mapping[row]
 		var letterIndex = randi() % rowString.length()

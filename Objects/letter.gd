@@ -1,7 +1,7 @@
 extends Node2D
 
 @onready var character = $text.text
-@export var speed: float = 0.5
+@export var speed: float = 1.0
 
 func set_character(inputChar: String):
 	print("Setting character to %s" % inputChar)
@@ -16,3 +16,4 @@ func change_color(color: Color):
 
 func _physics_process(delta: float) -> void:
 	global_position.y += speed
+	
