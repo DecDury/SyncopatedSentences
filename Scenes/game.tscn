@@ -159,9 +159,9 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
 
-[node name="Area2D" type="Area2D" parent="Background/MarginContainer/Rows/TargetZones"]
+[node name="Area2D-TargetZone" type="Area2D" parent="Background/MarginContainer/Rows/TargetZones"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/MarginContainer/Rows/TargetZones/Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/MarginContainer/Rows/TargetZones/Area2D-TargetZone"]
 position = Vector2(561.5, 30)
 shape = SubResource("RectangleShape2D_qclhx")
 
@@ -178,14 +178,44 @@ grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/separation = 20
 
-[node name="CurrentScore" type="RichTextLabel" parent="Background/CanvasLayer/HBoxContainer"]
+[node name="Panel" type="Panel" parent="Background/CanvasLayer/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ScoreLabel" type="RichTextLabel" parent="Background/CanvasLayer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_right = 0.504
+anchor_bottom = 0.84
+offset_left = 200.35
+offset_top = 2.0
+offset_right = 176.976
+offset_bottom = -2.0
 theme_override_colors/default_color = Color(1, 1, 1, 1)
 theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("2_y0e88")
-theme_override_font_sizes/normal_font_size = 7
+theme_override_font_sizes/normal_font_size = 50
 bbcode_enabled = true
-text = "Helsdfklsdfsdfsdfsdfssdfsdfsdfsdfdfffffffasdasdas"
+text = "[center]Score: [/center]"
+scroll_active = false
+
+[node name="CurrentScoreUI" type="RichTextLabel" parent="Background/CanvasLayer/HBoxContainer/Panel"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.367
+anchor_right = 0.465
+anchor_bottom = 1.02
+offset_left = 224.923
+offset_top = 3.0
+offset_right = 231.085
+offset_bottom = -3.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_y0e88")
+theme_override_font_sizes/normal_font_size = 50
+bbcode_enabled = true
+text = "[center]000[/center]"
 scroll_active = false
 
 [node name="text" type="RichTextLabel" parent="Background/CanvasLayer/HBoxContainer"]
@@ -232,6 +262,6 @@ position = Vector2(1085, 0)
 
 [node name="SpawnTimer" type="Timer" parent="."]
 
-[connection signal="area_entered" from="Background/MarginContainer/Rows/TargetZones/Area2D" to="." method="target_zone_entered"]
-[connection signal="area_exited" from="Background/MarginContainer/Rows/TargetZones/Area2D" to="." method="target_zone_exited"]
+[connection signal="area_entered" from="Background/MarginContainer/Rows/TargetZones/Area2D-TargetZone" to="." method="target_zone_entered"]
+[connection signal="area_exited" from="Background/MarginContainer/Rows/TargetZones/Area2D-TargetZone" to="." method="target_zone_exited"]
 [connection signal="timeout" from="SpawnTimer" to="." method="_on_spawn_timer_timeout"]

@@ -22,14 +22,14 @@ var horiz_mapping = [
 func getLetterForColumn(col: int) -> String:
 	var colString = vert_mapping[0]
 	if col >= vert_mapping.size():
-		print("Column Number: out of bounds, got %d" % col)
+		print("SPAWN LETTER: out of bounds, got %d" % col)
 		return "%d" % col
 	else:
 		colString = vert_mapping[col]
 		var letterIndex = randi() % colString.length()
 		var letter = colString[letterIndex]
 		letter = letter.to_upper()
-		print("Column Letter: %s" % letter)
+		#print("SPAWN LETTER: col=%d, letter=%s" % [col, letter])
 		return letter
 	
 func getLetterForRow(row: int) -> String:
