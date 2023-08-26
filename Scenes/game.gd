@@ -6,7 +6,6 @@ extends Control
 @onready var spawn_timer = $SpawnTimer
 @onready var ledger_line_container = $Background/MarginContainer/Rows/LedgerLineContainer
 @onready var current_score_ui = $Background/CanvasLayer/HBoxContainer/Panel/CurrentScoreUI
-
 # Set game mode
 enum {vert, horiz, spelling}
 @export var gamemode: int = vert
@@ -91,9 +90,9 @@ func _input(event: InputEvent) -> void:
 		if active_letter == null:
 			find_new_active_letter(key_typed)
 
-
 func _on_spawn_timer_timeout() -> void:
-	spawn_letter()
+	#spawn_letter()
+	pass
 	
 	
 func spawn_letter():
@@ -123,7 +122,7 @@ func target_zone_entered(area: Area2D) -> void:
 
 
 func target_zone_exited(area: Area2D) -> void:
-	if (letters_in_zone[0] != null):
+	if (letters_in_zone[0] != null && letters_in_zone[0] == area.get_parent()):
 		var temp_pointer = letters_in_zone.pop_front()
 		# TODO
 		# Need to fix score being decremented after
@@ -134,3 +133,6 @@ func target_zone_exited(area: Area2D) -> void:
 		temp_pointer = null
 		
 		
+
+
+

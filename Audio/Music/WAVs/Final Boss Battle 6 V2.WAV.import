@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://c454rpuwomflu"
+path="res://.godot/imported/Final Boss Battle 6 V2.WAV-fec97fbaf57646b8a241a15f33833e38.sample"
+
+[deps]
+
+source_file="res://Audio/Music/WAVs/Final Boss Battle 6 V2.WAV"
+dest_files=["res://.godot/imported/Final Boss Battle 6 V2.WAV-fec97fbaf57646b8a241a15f33833e38.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://dsmq2w3tixxtu"]
+
+[node name="SpawnManager" type="Node2D"]
+
+[node name="Container" type="Node2D" parent="."]
+
+[node name="Location1" type="Marker2D" parent="Container"]
+
+[node name="Location2" type="Marker2D" parent="Container"]
+
+[node name="Location3" type="Marker2D" parent="Container"]
+
+[node name="Location4" type="Marker2D" parent="Container"]
+
+[node name="Location5" type="Marker2D" parent="Container"]
+
+[node name="Location6" type="Marker2D" parent="Container"]
+
+[node name="Location7" type="Marker2D" parent="Container"]
+
+[node name="Location8" type="Marker2D" parent="Container"]
+
+[node name="Location9" type="Marker2D" parent="Container"]
+
+[node name="Location10" type="Marker2D" parent="Container"]

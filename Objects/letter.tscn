@@ -1,13 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://bths3dxms243"]
+[gd_scene load_steps=6 format=3 uid="uid://bths3dxms243"]
 
 [ext_resource type="FontFile" uid="uid://crdlyccmbma4o" path="res://Fonts/special-elite/SpecialElite.ttf" id="1_cmx3n"]
 [ext_resource type="Script" path="res://Objects/letter.gd" id="1_yqdl8"]
+[ext_resource type="Texture2D" uid="uid://b8lnqamcug8td" path="res://Sprites/KeyBackground.png" id="2_wfv6x"]
+[ext_resource type="AudioStream" uid="uid://cge4on5punbsb" path="res://Audio/SoundEffects/GUI_Sound_Effects_by_Lokif/click.wav" id="3_icd3y"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_o0fl2"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_4kaxs"]
 
 [node name="Letter" type="Node2D"]
 position = Vector2(36, 15)
 script = ExtResource("1_yqdl8")
+
+[node name="KeyBackground" type="Sprite2D" parent="."]
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("2_wfv6x")
 
 [node name="text" type="RichTextLabel" parent="."]
 anchors_preset = 8
@@ -30,4 +36,9 @@ scroll_active = false
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-shape = SubResource("RectangleShape2D_o0fl2")
+scale = Vector2(3, 3)
+shape = SubResource("CircleShape2D_4kaxs")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_icd3y")
+max_polyphony = 3

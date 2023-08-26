@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://bkavuebbvjrsw"]
+[gd_scene load_steps=9 format=3 uid="uid://bkavuebbvjrsw"]
 
 [ext_resource type="Script" path="res://Scenes/game.gd" id="1_c3snr"]
+[ext_resource type="PackedScene" uid="uid://brniqwejdf7xj" path="res://Scenes/KeyTarget.tscn" id="2_j53sn"]
 [ext_resource type="FontFile" uid="uid://crdlyccmbma4o" path="res://Fonts/special-elite/SpecialElite.ttf" id="2_y0e88"]
+[ext_resource type="AudioStream" uid="uid://grl5o58kan7b" path="res://Audio/Music/WAVs/leap.WAV" id="3_e56uy"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rs4sq"]
 bg_color = Color(0.0941176, 0.0901961, 0.0901961, 1)
@@ -10,7 +12,8 @@ bg_color = Color(0.0941176, 0.0901961, 0.0901961, 1)
 bg_color = Color(0.223529, 0.223529, 0.207843, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7ll2"]
-bg_color = Color(0.713726, 0.54902, 0.584314, 1)
+bg_color = Color(0, 0, 0, 1)
+border_color = Color(1, 1, 1, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qclhx"]
 size = Vector2(1123, 62)
@@ -59,51 +62,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
 
-[node name="Zone2" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
-[node name="Zone3" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
-[node name="Zone4" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
-[node name="Zone5" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
-[node name="Zone6" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
-[node name="Zone7" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
-[node name="Zone8" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
-[node name="Zone9" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
-[node name="Zone10" type="PanelContainer" parent="Background/MarginContainer/Rows/LedgerLineContainer/LedgerLines"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
-
 [node name="TargetZones" type="HBoxContainer" parent="Background/MarginContainer/Rows"]
 custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
@@ -114,50 +72,80 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
 
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone1" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
+
 [node name="Zone2" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone2" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
 
 [node name="Zone3" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
 
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone3" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
+
 [node name="Zone4" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone4" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
 
 [node name="Zone5" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
 
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone5" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
+
 [node name="Zone6" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone6" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
 
 [node name="Zone7" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
 
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone7" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
+
 [node name="Zone8" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone8" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
 
 [node name="Zone9" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
 
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone9" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
+
 [node name="Zone10" type="PanelContainer" parent="Background/MarginContainer/Rows/TargetZones"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_h7ll2")
+
+[node name="KeyTarget" parent="Background/MarginContainer/Rows/TargetZones/Zone10" instance=ExtResource("2_j53sn")]
+position = Vector2(50, 30)
 
 [node name="Area2D-TargetZone" type="Area2D" parent="Background/MarginContainer/Rows/TargetZones"]
 
@@ -261,6 +249,9 @@ position = Vector2(961, 0)
 position = Vector2(1085, 0)
 
 [node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_e56uy")
 
 [connection signal="area_entered" from="Background/MarginContainer/Rows/TargetZones/Area2D-TargetZone" to="." method="target_zone_entered"]
 [connection signal="area_exited" from="Background/MarginContainer/Rows/TargetZones/Area2D-TargetZone" to="." method="target_zone_exited"]
