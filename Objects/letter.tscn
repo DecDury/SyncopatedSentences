@@ -9,6 +9,7 @@
 
 [node name="Letter" type="Node2D"]
 position = Vector2(36, 15)
+scale = Vector2(0.25, 0.25)
 script = ExtResource("1_yqdl8")
 
 [node name="KeyBackground" type="Sprite2D" parent="."]

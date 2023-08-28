@@ -1,16 +1,13 @@
 extends Node2D
 
-var spawn_spacing = 100;
+var bar: int = 1
+var count: int = 0
 
 func _ready() -> void:
-	var offset: int = 0
-	for location in $Container.get_children():
-		location.globalposition += offset
-		offset += spawn_spacing
-	
-	for note in notes:
-		
+	pass
 
-func spawn_letters() -> void:
-	for note in notes:
-		var pitch = str(note[0])
+func spawn_letter(pitch) -> void:
+	count += 1
+	
+	var pitch_str = str(pitch)
+	$Letter.set_character(pitch_str)

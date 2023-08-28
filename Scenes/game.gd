@@ -91,7 +91,7 @@ func _input(event: InputEvent) -> void:
 			find_new_active_letter(key_typed)
 
 func _on_spawn_timer_timeout() -> void:
-	#spawn_letter()
+	spawn_letter()
 	pass
 	
 	

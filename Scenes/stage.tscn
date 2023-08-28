@@ -27,5 +27,10 @@ stream = ExtResource("2_v8mfd")
 
 [node name="SpawnManager" parent="." instance=ExtResource("3_e6xgn")]
 
+[node name="Timer" type="Timer" parent="."]
+
+[node name="IntroTimer" type="Timer" parent="."]
+
 [connection signal="pressed" from="StartBtn" to="." method="_on_start_btn_pressed"]
 [connection signal="pressed" from="StopBtn" to="." method="_on_stop_btn_pressed"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
