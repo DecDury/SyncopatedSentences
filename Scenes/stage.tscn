@@ -8,17 +8,17 @@
 script = ExtResource("1_mb7nd")
 
 [node name="StartBtn" type="Button" parent="."]
-offset_left = 76.0
-offset_top = 31.0
-offset_right = 122.0
-offset_bottom = 62.0
+offset_left = 398.0
+offset_top = 549.0
+offset_right = 444.0
+offset_bottom = 580.0
 text = "Start"
 
 [node name="StopBtn" type="Button" parent="."]
-offset_left = 230.0
-offset_top = 47.0
-offset_right = 273.0
-offset_bottom = 78.0
+offset_left = 640.0
+offset_top = 550.0
+offset_right = 683.0
+offset_bottom = 581.0
 text = "Stop
 "
 
@@ -26,6 +26,7 @@ text = "Stop
 stream = ExtResource("2_v8mfd")
 
 [node name="SpawnManager" parent="." instance=ExtResource("3_e6xgn")]
+position = Vector2(519, 133)
 
 [node name="Timer" type="Timer" parent="."]
 

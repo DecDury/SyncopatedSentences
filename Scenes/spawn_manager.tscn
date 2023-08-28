@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://dsmq2w3tixxtu"]
+[gd_scene load_steps=2 format=3 uid="uid://dsmq2w3tixxtu"]
 
 [ext_resource type="Script" path="res://Scripts/spawn_manager.gd" id="1_khkx0"]
-[ext_resource type="PackedScene" uid="uid://bths3dxms243" path="res://Objects/letter.tscn" id="1_ynao7"]
 
 [node name="SpawnManager" type="Node2D"]
 script = ExtResource("1_khkx0")
-
-[node name="Letter" parent="." instance=ExtResource("1_ynao7")]
-speed = 0.0

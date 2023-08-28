@@ -17,7 +17,7 @@ config/icon="res://icon.svg"
 
 [autoload]
 
-KeyboardMapping="*res://keyboard_mapping.gd"
+KeyboardMapping="*res://Scripts/keyboard_mapping.gd"
 
 [editor]
 

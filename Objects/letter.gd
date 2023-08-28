@@ -4,9 +4,9 @@ extends Node2D
 @export var speed: float = 1.0
 var in_target_zone = false
 
-func set_character(inputChar: String):
+func set_character(inputChar):
 	#print("Setting character to %s" % inputChar)
-	#inputChar = "%d" % in_targert_zone # for testing
+	#inputChar = "%d" % in_targert_zone # for testing	
 	character = inputChar
 	$text.text = inputChar
 

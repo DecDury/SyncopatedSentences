@@ -31,21 +31,31 @@ func _ready() -> void:
 	
 	print("Song Info\nBPM=%d\nTPM=%f\nTimeSignature=%d/%d" % [tempo, tpm, time_signature_numerator, time_signature_denominator])
 	
+	
 	var track = music_json["tracks"][21]
+	var min_pitch = track["notes"][0]["midi"]
+	var max_pitch = track["notes"][0]["midi"]
+	
 	for note in track["notes"]:
 		add_note_to_array(note)
+		
+		# find pitch range
+		if note["midi"] < min_pitch:
+			min_pitch = note["midi"]
+		if note["midi"] > max_pitch:
+			max_pitch = note["midi"]
+	
+	print("LowestPitch=%d\nHighestPitch=%d" % [min_pitch, max_pitch])
+	
+	KeyboardMapping.min_pitch = min_pitch
+	KeyboardMapping.max_pitch = max_pitch
+		
 	
 func add_note_to_array(note):
 	# { "duration": 0.193548, "durationTicks": 240, "midi": 30, "name": "F#1", "ticks": 73680, "time": 59.419236, "velocity": 0.74803149606299 }
 	var time = str(snapped(note["time"], time_accuracy))
 	if !notes.has(time):
 		notes[time] = note["midi"]
-	
-			
-func play_notes(notes):
-	for note in notes:
-		var note_number = str(note[0])
-		var pitch
 
 func _on_start_btn_pressed() -> void:
 
