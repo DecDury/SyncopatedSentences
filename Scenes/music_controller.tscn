@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfkr0uey6yphi"]
+
+[ext_resource type="Script" path="res://Scripts/MusicController.gd" id="1_7j7ye"]
+[ext_resource type="AudioStream" uid="uid://grl5o58kan7b" path="res://Audio/Music/WAVs/leap.WAV" id="2_0ces1"]
+
+[node name="MusicController" type="Node"]
+script = ExtResource("1_7j7ye")
+
+[node name="Audio" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_0ces1")
+autoplay = true
+
+[node name="Timer" type="Timer" parent="."]
+one_shot = true
