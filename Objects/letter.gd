@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 @onready var character = $text.text
 @export var speed: float = 1.0
@@ -20,7 +20,7 @@ func change_color(color: Color):
 	$text.text = "[center][color=%s]%s[/color][/center]" % [color, self.text]
 
 func _physics_process(delta: float) -> void:
-	global_position.y += speed
+	global_position.y += speed * delta
 	
 func _process(delta: float) -> void:
 	if $Area2D.has_overlapping_areas():

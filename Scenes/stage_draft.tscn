@@ -28,7 +28,7 @@ text = "Stop
 stream = ExtResource("2_v8mfd")
 
 [node name="SpawnManager" parent="." instance=ExtResource("3_e6xgn")]
-position = Vector2(1241, 138)
+position = Vector2(569, 1033)
 
 [node name="Timer" type="Timer" parent="."]
 

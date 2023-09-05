@@ -8,28 +8,36 @@ var notes
 
 var note_numb = 0
 
-var time = 0
+var stage_time = 0
 
-var spawn_zone_positions = []
+var interval = 0
 
-var y_offset = 1200
+
+
+var y_offset = 800
+
+func _on_music_controller_processed_json() -> void:
+	$SpawnManager.tpb = $MusicController.tpb
+	$SpawnManager.timesig_numerator = $MusicController.time_signature_numerator
+
 
 func _ready() -> void:
 	time_accuracy = $MusicController.time_accuracy
 	notes = $MusicController.notes
-	for tz in $GUI/BottomBar/HBoxContainer/Targets.get_children():
-		spawn_zone_positions.append(Vector2(tz.global_position.x, tz.global_position.y - y_offset))
+	$MusicController.play_with_delay(4)
+	
+
 
 func _process(delta):
-	time += delta
-	if time > time_accuracy:
-		var current_time = $MusicController.play_note()
+	stage_time += delta
+	interval += delta
+	if interval >= time_accuracy:
+		var current_time = $MusicController.play_note(stage_time)
 		if current_time:
 			current_time = str(current_time)
 			
-			var horizontal_offset = (notes[current_time] - KeyboardMapping.min_pitch) / KeyboardMapping.pitch_range * 10 - 1
 			
-			$SpawnManager.spawn_letter(notes[current_time], spawn_zone_positions[horizontal_offset])
+			$SpawnManager.spawn_letter(notes[current_time])
 			
 			note_numb += 1
 			print("TIME %s, PITCH %d, NOTE NUMB: %d" % [current_time, notes[current_time], note_numb])
@@ -37,6 +45,6 @@ func _process(delta):
 			print("---------------")
 			
 		# Reset timer
-		time = 0
+		interval = 0
 
 

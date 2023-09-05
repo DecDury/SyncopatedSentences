@@ -8,7 +8,8 @@ script = ExtResource("1_7j7ye")
 
 [node name="Audio" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_0ces1")
-autoplay = true
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

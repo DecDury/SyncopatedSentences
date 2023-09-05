@@ -1,13 +1,15 @@
 extends Node
 
 var notes = {}
-var time_accuracy = 0.05
+var time_accuracy = 0.1
 var note_numb = 0
 
 var tempo
 var time_signature_numerator
 var time_signature_denominator
-var tpm: float 
+var tpb: float 
+
+signal processed_json
 
 func _enter_tree() -> void:
 	# reading json file
@@ -24,18 +26,20 @@ func _enter_tree() -> void:
 	file.close()
 	
 	# general info
-	var tempo = music_json["header"]["tempos"][0]["bpm"]
-	var time_signature_numerator = music_json["header"]["timeSignatures"][0]["timeSignature"][0]
-	var time_signature_denominator = music_json["header"]["timeSignatures"][0]["timeSignature"][1]
-	var tpm: float = 60/tempo #time per beat in seconds
+	tempo = music_json["header"]["tempos"][0]["bpm"]
+	time_signature_numerator = music_json["header"]["timeSignatures"][0]["timeSignature"][0]
+	time_signature_denominator = music_json["header"]["timeSignatures"][0]["timeSignature"][1]
+	tpb = 60/tempo #time per beat in seconds
 	
-	print("Song Info\nBPM=%d\nTPM=%f\nTimeSignature=%d/%d" % [tempo, tpm, time_signature_numerator, time_signature_denominator])
+	print("Song Info\nBPM=%d\nTPM=%f\nTimeSignature=%d/%d" % [tempo, tpb, time_signature_numerator, time_signature_denominator])
 	
 	
-	var track = music_json["tracks"][21]
+	var track = music_json["tracks"][21] # bass
 	var min_pitch = track["notes"][0]["midi"]
 	var max_pitch = track["notes"][0]["midi"]
 	
+	var prev_time = 0
+	var smallest_interval = time_accuracy
 	for note in track["notes"]:
 		add_note_to_array(note)
 		
@@ -44,12 +48,17 @@ func _enter_tree() -> void:
 			min_pitch = note["midi"]
 		if note["midi"] > max_pitch:
 			max_pitch = note["midi"]
+		
 	
 	print("LowestPitch=%d\nHighestPitch=%d" % [min_pitch, max_pitch])
+	print("Accuracy: %f" % time_accuracy)
 	
 	KeyboardMapping.min_pitch = min_pitch
 	KeyboardMapping.max_pitch = max_pitch
 	KeyboardMapping.pitch_range = max_pitch - min_pitch
+	
+	# let other nodes know json has been processed
+	emit_signal("processed_json")
 		
 	
 func add_note_to_array(note):
@@ -57,16 +66,18 @@ func add_note_to_array(note):
 	var time = str(snapped(note["time"], time_accuracy))
 	if !notes.has(time):
 		notes[time] = note["midi"]
+		#print("NOTES: %f, %d"% [time, notes[time]])
 
-func play_with_delay(delay):
-	$Timer.start(delay)
+func play_with_delay(beats: int):
+	print("play with delay called - %f" % (tpb * beats))
+	$Timer.start(tpb * beats)
 	
 
 func _on_timer_timeout() -> void:
 	$Audio.play()
 	
-func play_note() -> float:
-	var current_time = snapped($Audio.get_playback_position(), time_accuracy)
+func play_note(stage_time) -> float:
+	var current_time = snapped(stage_time, time_accuracy)
 	
 	if notes.has(str(current_time)):
 		return current_time

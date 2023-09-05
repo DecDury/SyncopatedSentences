@@ -11,5 +11,8 @@ script = ExtResource("1_mb7nd")
 [node name="GUI" parent="." instance=ExtResource("1_qxlaj")]
 
 [node name="SpawnManager" parent="." instance=ExtResource("3_e6xgn")]
+position = Vector2(400, 1000)
 
 [node name="MusicController" parent="." instance=ExtResource("3_forv5")]
+
+[connection signal="processed_json" from="MusicController" to="." method="_on_music_controller_processed_json"]
