@@ -3,6 +3,7 @@ extends Node
 var notes = {}
 var time_accuracy = 0.1
 var note_numb = 0
+var total_notes = 0
 
 var tempo
 var time_signature_numerator
@@ -42,6 +43,9 @@ func _enter_tree() -> void:
 	var smallest_interval = time_accuracy
 	for note in track["notes"]:
 		add_note_to_array(note)
+		
+		# tally note
+		total_notes += 1
 		
 		# find pitch range
 		if note["midi"] < min_pitch:

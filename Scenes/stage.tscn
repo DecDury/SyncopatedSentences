@@ -15,4 +15,7 @@ position = Vector2(400, 1000)
 
 [node name="MusicController" parent="." instance=ExtResource("3_forv5")]
 
+[node name="Timer" type="Timer" parent="."]
+
 [connection signal="processed_json" from="MusicController" to="." method="_on_music_controller_processed_json"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
