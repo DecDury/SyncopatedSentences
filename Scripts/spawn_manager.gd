@@ -12,11 +12,15 @@ var timesig_numerator = 4
 
 var spawn_zone_positions = []
 var letter_speed 
-#@onready var range = max_pitch - min_pitch
+
+var letters_in_zone = []
+
+# Letter punctuality
+enum {miss, early, perfect, late}
 
 func _enter_tree() -> void:
 	var offset = 0
-	for t in $StaticBody2D.get_children():
+	for t in $Targets.get_children():
 		t.position.x += offset
 		offset += target_spacing
 		spawn_zone_positions.append(Vector2(t.position.x, letter_starting_y))
@@ -43,6 +47,33 @@ func spawn_letter(pitch) -> void:
 	
 	add_child(letter_instance)
 	
-	
+
+#-------------------------
+# Area 2D signal handlers
+#-------------------------
+func _on_target_zone_area_entered(area: Area2D) -> void:
+	letters_in_zone.push_back(area.get_parent())
+
+
+func _on_target_zone_area_exited(area: Area2D) -> void:
+	if (letters_in_zone[0] == area.get_parent()):
+		var temp_pointer = letters_in_zone.pop_front()
+		temp_pointer.queue_free()
+		temp_pointer = null
 	
 
+
+
+func _on_early_zone_area_entered(area: Area2D) -> void:
+	var letter = area.get_parent()
+	#letter.punctuality = early
+
+
+func _on_perfect_zone_area_entered(area: Area2D) -> void:
+	var letter = area.get_parent()
+	#letter.set_punctuality(perfect)
+
+
+func _on_late_zone_area_entered(area: Area2D) -> void:
+	var letter = area.get_parent()
+	#letter.set_punctuality(late)

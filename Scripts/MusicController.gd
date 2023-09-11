@@ -39,8 +39,8 @@ func _enter_tree() -> void:
 	var min_pitch = track["notes"][0]["midi"]
 	var max_pitch = track["notes"][0]["midi"]
 	
-	var prev_time = 0
-	var smallest_interval = time_accuracy
+	var prev_time = track["notes"][0]["time"]
+	var smallest_interval: float = track["notes"][1]["time"]
 	for note in track["notes"]:
 		add_note_to_array(note)
 		
@@ -52,9 +52,20 @@ func _enter_tree() -> void:
 			min_pitch = note["midi"]
 		if note["midi"] > max_pitch:
 			max_pitch = note["midi"]
+			
+		# find smallest note interval
+		var diff = note["time"] - prev_time
+		if smallest_interval > diff && diff != 0:
+			smallest_interval = diff
+		prev_time = note["time"]
 		
 	
 	print("LowestPitch=%d\nHighestPitch=%d" % [min_pitch, max_pitch])
+	print("Smallest Interval: %f" % smallest_interval)
+	
+	# Set smallest interval to time_accuracy
+	#time_accuracy = snapped(smallest_interval, 0.001)
+	
 	print("Accuracy: %f" % time_accuracy)
 	
 	KeyboardMapping.min_pitch = min_pitch

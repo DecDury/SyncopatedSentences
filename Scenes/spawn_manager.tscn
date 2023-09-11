@@ -1,34 +1,72 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsmq2w3tixxtu"]
+[gd_scene load_steps=5 format=3 uid="uid://dsmq2w3tixxtu"]
 
 [ext_resource type="Script" path="res://Scripts/spawn_manager.gd" id="1_khkx0"]
 [ext_resource type="PackedScene" uid="uid://brniqwejdf7xj" path="res://Scenes/KeyTarget.tscn" id="2_gf6p0"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_e06o5"]
+size = Vector2(29.0107, 20)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf648"]
+size = Vector2(1056.25, 20)
 
 [node name="SpawnManager" type="Node2D"]
 script = ExtResource("1_khkx0")
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="TargetZone" type="Area2D" parent="."]
 
-[node name="Target1" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
+[node name="CollisionShapeTarget" type="CollisionShape2D" parent="TargetZone"]
+position = Vector2(1438, 0)
+scale = Vector2(105, 9.98)
+shape = SubResource("RectangleShape2D_e06o5")
 
-[node name="Target2" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
+[node name="EarlyZone" type="Area2D" parent="."]
 
-[node name="Target3" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
-
-[node name="Target4" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
-
-[node name="Target5" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
-
-[node name="Target6" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
-
-[node name="Target7" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
-
-[node name="Target8" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
-
-[node name="Target9" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
-
-[node name="Target10" parent="StaticBody2D" instance=ExtResource("2_gf6p0")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShapeEarly" type="CollisionShape2D" parent="EarlyZone"]
+position = Vector2(1438, -60)
+scale = Vector2(2.88, 4)
 shape = SubResource("RectangleShape2D_lf648")
+debug_color = Color(1, 1, 0, 0.419608)
+
+[node name="PerfectZone" type="Area2D" parent="."]
+
+[node name="CollisionShapePerfect" type="CollisionShape2D" parent="PerfectZone"]
+position = Vector2(1438, 0)
+scale = Vector2(2.88, 2)
+shape = SubResource("RectangleShape2D_lf648")
+debug_color = Color(0.188235, 0.639216, 0.184314, 0.419608)
+
+[node name="LateZone" type="Area2D" parent="."]
+
+[node name="CollisionShapeLate" type="CollisionShape2D" parent="LateZone"]
+position = Vector2(1438, 60)
+scale = Vector2(2.88, 4)
+shape = SubResource("RectangleShape2D_lf648")
+debug_color = Color(0.890196, 0.301961, 0.337255, 0.419608)
+
+[node name="Targets" type="Node2D" parent="."]
+
+[node name="Target1" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target2" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target3" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target4" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target5" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target6" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target7" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target8" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target9" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[node name="Target10" parent="Targets" instance=ExtResource("2_gf6p0")]
+
+[connection signal="area_entered" from="TargetZone" to="." method="_on_target_zone_area_entered"]
+[connection signal="area_exited" from="TargetZone" to="." method="_on_target_zone_area_exited"]
+[connection signal="area_entered" from="EarlyZone" to="." method="_on_early_zone_area_entered"]
+[connection signal="area_entered" from="PerfectZone" to="." method="_on_perfect_zone_area_entered"]
+[connection signal="area_entered" from="LateZone" to="." method="_on_late_zone_area_entered"]
