@@ -66,14 +66,17 @@ func _on_target_zone_area_exited(area: Area2D) -> void:
 
 func _on_early_zone_area_entered(area: Area2D) -> void:
 	var letter = area.get_parent()
+	#print("In Early")
 	#letter.punctuality = early
 
 
 func _on_perfect_zone_area_entered(area: Area2D) -> void:
 	var letter = area.get_parent()
+	#print("In Perfect")
 	#letter.set_punctuality(perfect)
 
 
 func _on_late_zone_area_entered(area: Area2D) -> void:
 	var letter = area.get_parent()
+	#print("In Late")
 	#letter.set_punctuality(late)

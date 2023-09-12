@@ -35,7 +35,7 @@ func getLetter(pitch: int) -> String:
 	var letter = vert_mapping[mapped_letter_index / 3 - 1][mapped_letter_index % 3]
 	letter = letter.to_upper()
 	
-	print("MAPPED Pitch:%d -> Letter:%s" % [pitch, letter])
+	#print("MAPPED Pitch:%d -> Letter:%s" % [pitch, letter])
 	return letter
 	
 func getLetterForRow(row: int) -> String:
