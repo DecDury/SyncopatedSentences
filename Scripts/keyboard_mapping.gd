@@ -2,8 +2,10 @@ extends Node
 
 var min_pitch
 var max_pitch
-var number_of_letters = 30
+var number_of_letters: int = 30
 var pitch_range
+
+var col_to_let_ratio: float = 10/30
 
 
 
@@ -37,6 +39,17 @@ func getLetter(pitch: int) -> String:
 	
 	#print("MAPPED Pitch:%d -> Letter:%s" % [pitch, letter])
 	return letter
+	
+func getIndexForCollumn(char: String) -> int:
+	var current_index: int = 0
+	var index: int = 0
+	for col in vert_mapping:
+		for letter in col:
+			if letter.to_upper() == char:
+				index = current_index
+				break
+		current_index += 1
+	return index
 	
 func getLetterForRow(row: int) -> String:
 	var rowString = horiz_mapping[0]

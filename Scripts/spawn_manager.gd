@@ -13,12 +13,13 @@ var timesig_numerator = 4
 var spawn_zone_positions = []
 var letter_speed 
 
-var letters_in_zone = []
-
 # Letter punctuality
 enum {miss, early, perfect, late}
+signal tooLate
 
 func _enter_tree() -> void:
+	# Set spacing of target zones
+	# and set spawn zones relative to them
 	var offset = 0
 	for t in $Targets.get_children():
 		t.position.x += offset
@@ -31,52 +32,38 @@ func _ready() -> void:
 	print("Letter Speed: %f" % letter_speed)
 	
 
-func spawn_letter(pitch) -> void:
+func spawn_letter(pitch) -> Node2D:
 	
+	# Instantiate Letter
 	var letter_instance = Letter.instantiate()
 	
+	# Set letter speed
 	letter_instance.speed = letter_speed
 		
+	# Set letter character based on pitch
 	letter_instance.set_character(
 		KeyboardMapping.getLetter(pitch)
 	)
 	
-	
+	# Set spawn position
 	var horizontal_offset = (pitch - KeyboardMapping.min_pitch) / KeyboardMapping.pitch_range * 10 - 1
 	letter_instance.global_position = spawn_zone_positions[horizontal_offset]
 	
-	add_child(letter_instance)
+	#
+	$LetterContainer.add_child(letter_instance)
+	return letter_instance
+	
 	
 
 #-------------------------
 # Area 2D signal handlers
 #-------------------------
-func _on_target_zone_area_entered(area: Area2D) -> void:
-	letters_in_zone.push_back(area.get_parent())
-
-
-func _on_target_zone_area_exited(area: Area2D) -> void:
-	if (letters_in_zone[0] == area.get_parent()):
-		var temp_pointer = letters_in_zone.pop_front()
-		temp_pointer.queue_free()
-		temp_pointer = null
+func _on_late_zone_area_exited(area: Area2D) -> void:
+	# letter was missed and should be free
+	var letter = area.get_parent()
+	print("%s freed" % letter.name)
+	$LetterContainer.remove_child(letter)
+	letter.queue_free()
 	
-
-
-
-func _on_early_zone_area_entered(area: Area2D) -> void:
-	var letter = area.get_parent()
-	#print("In Early")
-	#letter.punctuality = early
-
-
-func _on_perfect_zone_area_entered(area: Area2D) -> void:
-	var letter = area.get_parent()
-	#print("In Perfect")
-	#letter.set_punctuality(perfect)
-
-
-func _on_late_zone_area_entered(area: Area2D) -> void:
-	var letter = area.get_parent()
-	#print("In Late")
-	#letter.set_punctuality(late)
+	# let other nodes know a letter has been missed and the score should be decremented
+	emit_signal("tooLate") 

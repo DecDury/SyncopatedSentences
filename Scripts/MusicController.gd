@@ -1,22 +1,62 @@
 extends Node
 
-var notes = {}
-var time_accuracy = 0.000001
-var note_numb = 0
-var total_notes = 0
+@export var midi_file: String = "res://Scenes/LEAP.json"
 
-var tempo
+var notes = {}
+var time_accuracy: float = 0.000001
+var note_numb: int = 0
+var total_notes: int = 0
+
+var bpm # beats per minute of the song
+var tpb: float # time per beat in seconds
+var music_start_time: int = 0 # scene time in msec when music started
+var song_position: int # song position in msecs
+var positionInBeats: int # song position in beats
 var time_signature_numerator
 var time_signature_denominator
-var tpb: float
 
-var music_start_time: int = 0
 
 signal processed_json
 
 func _enter_tree() -> void:
+	
+	#------------------
+	# Temp Song Selection
+	#------------------
+	var song_number = 3
+	var track_number = 0
+	var music_wav
+
+	# Song Selection
+	# 1: LEAP
+	# track 21 for bass
+
+	# 2: BOSS battle 2
+	# track 12 for Raita 1
+
+	# 3: Final Boss Battle 6
+	# track 3 for guitar
+	
+	
+	match song_number:
+		1:
+			midi_file = "res://Audio/Music/LEAP.json"
+			track_number = 21 # bass
+			music_wav = preload("res://Audio/Music/WAVs/leap.WAV")
+			
+		2:
+			midi_file = "res://Audio/Music/boss_battle_#2.json"
+			track_number = 7
+			music_wav = preload("res://Audio/Music/WAVs/boss_battle_#2.WAV")
+		3:
+			midi_file = "res://Audio/Music/FinalBossBattle6.json"
+			track_number = 3
+			music_wav = preload("res://Audio/Music/WAVs/Final Boss Battle 6 V2.WAV")
+	
+	$Audio.stream = music_wav
+	
 	# reading json file
-	var file = FileAccess.open("res://Scenes/LEAP.json",FileAccess.READ)
+	var file = FileAccess.open(midi_file, FileAccess.READ)
 	var text = file.get_as_text()
 	
 	var json = JSON.new()
@@ -29,15 +69,18 @@ func _enter_tree() -> void:
 	file.close()
 	
 	# general info
-	tempo = music_json["header"]["tempos"][0]["bpm"]
+	bpm = music_json["header"]["tempos"][0]["bpm"]
 	time_signature_numerator = music_json["header"]["timeSignatures"][0]["timeSignature"][0]
 	time_signature_denominator = music_json["header"]["timeSignatures"][0]["timeSignature"][1]
-	tpb = 60/tempo #time per beat in seconds
+	tpb = 60/bpm #time per beat in seconds
 	
-	print("Song Info\nBPM=%d\nTPB=%f\nTimeSignature=%d/%d" % [tempo, tpb, time_signature_numerator, time_signature_denominator])
+	print("Song Info\nBPM=%f\nTPB=%f\nTimeSignature=%d/%d" % [bpm, tpb, time_signature_numerator, time_signature_denominator])
+	print("--------------------")
 	
 	
-	var track = music_json["tracks"][21] # bass
+	
+	
+	var track = music_json["tracks"][track_number]
 	var min_pitch = track["notes"][0]["midi"]
 	var max_pitch = track["notes"][0]["midi"]
 	
@@ -78,13 +121,19 @@ func _enter_tree() -> void:
 	emit_signal("processed_json")
 		
 	
+func _physics_process(delta: float) -> void:
+	song_position = $Audio.get_playback_position() * 1000 # seconds to msecs
+	
+	
 func add_note_to_array(note):
 	# { "duration": 0.193548, "durationTicks": 240, "midi": 30, "name": "F#1", "ticks": 73680, "time": 59.419236, "velocity": 0.74803149606299 }
-	var msecs = snapped(note["time"] * 1000, 1) # seconds to msec
+	var msecs: int = note["time"] * 1000 # seconds to msec
 	#print(msecs)
 	if !notes.has(msecs):
 		notes[msecs] = note["midi"]
 		#print("NOTES: %f, %d"% [time, notes[time]])
+
+
 
 func play_with_delay(beats: int):
 	print("play with delay called - %f" % (tpb * beats))
@@ -109,12 +158,4 @@ func _on_timer_timeout() -> void:
 	$Audio.play()
 	music_start_time = Time.get_ticks_msec()
 	print("Music Start Time: %d" % music_start_time)
-	
-func play_note(stage_time) -> float:
-	var current_time = snapped(stage_time, time_accuracy)
-	
-	if notes.has(str(current_time)):
-		return current_time
-	else:
-		return 0
 

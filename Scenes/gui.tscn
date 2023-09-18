@@ -1,7 +1,10 @@
-[gd_scene load_steps=3 format=3 uid="uid://c5p2uvq66fr8m"]
+[gd_scene load_steps=4 format=3 uid="uid://c5p2uvq66fr8m"]
 
 [ext_resource type="Texture2D" uid="uid://dfe03qkg0j7se" path="res://Sprites/progress_bg.png" id="1_e6bov"]
 [ext_resource type="Texture2D" uid="uid://bqdcd2a81mnsr" path="res://Sprites/progress_fill.png" id="2_ellnk"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vx3at"]
+bg_color = Color(0.219608, 0.192157, 0.176471, 1)
 
 [node name="GUI" type="Control"]
 layout_mode = 3
@@ -10,16 +13,24 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="Background" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_vx3at")
 
 [node name="TopBar" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -198.0
-offset_right = 198.0
-offset_bottom = 53.0
+layout_mode = 2
+offset_left = 762.0
+offset_right = 1158.0
+offset_bottom = 1080.0
 grow_horizontal = 2
+size_flags_horizontal = 4
 
 [node name="ProgressBar" type="TextureProgressBar" parent="TopBar"]
 layout_mode = 2
@@ -27,15 +38,13 @@ texture_under = ExtResource("1_e6bov")
 texture_progress = ExtResource("2_ellnk")
 
 [node name="LeftBar" type="MarginContainer" parent="."]
-layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
-offset_top = -48.0
-offset_right = 117.0
-offset_bottom = 48.0
+layout_mode = 2
+offset_top = 492.0
+offset_right = 122.0
+offset_bottom = 588.0
 grow_vertical = 2
-scale = Vector2(2, 2)
+size_flags_horizontal = 0
+size_flags_vertical = 4
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 20
 theme_override_constants/margin_right = 20
@@ -52,10 +61,12 @@ layout_mode = 2
 
 [node name="ScoreLabel" type="Label" parent="LeftBar/HBoxContainer/ScoreBox/Score"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "Score"
 
 [node name="ScorePoints" type="Label" parent="LeftBar/HBoxContainer/ScoreBox/Score"]
 layout_mode = 2
+theme_override_font_sizes/font_size = 25
 text = "0"
 
 [node name="Combo" type="HBoxContainer" parent="LeftBar/HBoxContainer/ScoreBox"]
@@ -63,8 +74,33 @@ layout_mode = 2
 
 [node name="ComboLabel" type="Label" parent="LeftBar/HBoxContainer/ScoreBox/Combo"]
 layout_mode = 2
-text = "Combo"
+theme_override_font_sizes/font_size = 25
+text = "Combo x"
 
 [node name="ComboMultiplier" type="Label" parent="LeftBar/HBoxContainer/ScoreBox/Combo"]
 layout_mode = 2
-text = "x1"
+theme_override_font_sizes/font_size = 25
+text = "1"
+
+[node name="RightBar" type="MarginContainer" parent="."]
+layout_mode = 2
+offset_left = 1832.0
+offset_top = 513.0
+offset_right = 1920.0
+offset_bottom = 566.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="RightBar"]
+layout_mode = 2
+
+[node name="PunctualityLabel" type="Label" parent="RightBar/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25
+text = "Punctuality"
+
+[node name="PunctualityQualifier" type="Label" parent="RightBar/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 25

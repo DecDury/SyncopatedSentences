@@ -17,5 +17,6 @@ position = Vector2(400, 1000)
 
 [node name="Timer" type="Timer" parent="."]
 
+[connection signal="tooLate" from="SpawnManager" to="." method="_on_spawn_manager_too_late"]
 [connection signal="processed_json" from="MusicController" to="." method="_on_music_controller_processed_json"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
