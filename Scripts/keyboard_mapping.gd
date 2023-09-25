@@ -8,6 +8,9 @@ var pitch_range
 
 var col_to_let_ratio: float = number_of_cols/number_of_letters
 
+# hacky letter to col mapping solution for use by spawn manager
+var last_col_index: int = 0
+
 
 
 var vert_mapping = [
@@ -30,20 +33,27 @@ var horiz_mapping = [
 ]
 
 func getLetter(pitch: int) -> String:
-	
-	pitch_range = max_pitch - min_pitch
-	var let_to_pit_ratio = number_of_letters / (pitch_range+1)
+	var let_to_pit_ratio = (number_of_letters-1) / (pitch_range)
 	var mapped_letter_index: int = let_to_pit_ratio * (pitch - min_pitch)
 	
 	print("Pitch Range: %f" % pitch_range)
 	print("Mapped Letter Index: %f" % mapped_letter_index)
 	
-		
-	var letter = vert_mapping[mapped_letter_index / 3][mapped_letter_index % 3]
+#	for i in range(min_pitch, max_pitch):
+#		var index: int = let_to_pit_ratio * (i - min_pitch)
+#		print("%d -> %s" % [ i-min_pitch, vert_mapping[index / 3][index % 3] ])
+#		print("vert_mapping[%d][%d]" % [(index / 3), (index % 3)] )
+#		print("----------------")
+	
+	last_col_index = mapped_letter_index / 3 
+	var letter = vert_mapping[last_col_index][mapped_letter_index % 3]
 	letter = letter.to_upper()
 	
 	#print("MAPPED Pitch:%d -> Letter:%s" % [pitch, letter])
 	return letter
+
+func getLastColIndex() -> int:
+	return last_col_index
 
 func check_if_special_character(typed_character: String) -> String:
 	match typed_character:

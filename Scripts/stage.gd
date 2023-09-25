@@ -123,7 +123,7 @@ func _input(event: InputEvent) -> void:
 						score += 1 * combo_multiplier
 						punctuality_GUI_label.set_text("Late")
 						#print("LATE")
-				print("%d" % key_typed)
+				print("%s" % key_typed)
 				
 				
 				if letter.punctuality != miss:

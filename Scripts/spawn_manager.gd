@@ -47,10 +47,17 @@ func spawn_letter(pitch) -> Node2D:
 	letter_instance.set_character(letter_char)
 	
 	# Set spawn position
-	var horizontal_offset = number_of_targets/(KeyboardMapping.pitch_range+1)  * (pitch - KeyboardMapping.min_pitch)
-	print("%f = %f/%f  * (%f - %f)" % [horizontal_offset, number_of_targets, KeyboardMapping.pitch_range, pitch, KeyboardMapping.min_pitch])
-	print("%d %s - offset: %f" % [pitch, letter_char, horizontal_offset])
-	letter_instance.global_position = spawn_zone_positions[horizontal_offset]
+#	var horizontal_offset = (number_of_targets)/(KeyboardMapping.pitch_range)  * (pitch - KeyboardMapping.min_pitch) - 0.001
+#	print("%d %s - offset: %f" % [pitch, letter_char, horizontal_offset])
+#	letter_instance.global_position = spawn_zone_positions[horizontal_offset]
+	letter_instance.global_position = spawn_zone_positions[KeyboardMapping.getLastColIndex()]
+	print("LetterCol: %d for %s" % [KeyboardMapping.getLastColIndex(), letter_char])
+	
+	
+#	pitch_range = max_pitch - min_pitch
+#	var let_to_pit_ratio = (number_of_letters-1) / (pitch_range)
+#	var mapped_letter_index: int = let_to_pit_ratio * (pitch - min_pitch)
+#	var letter = vert_mapping[mapped_letter_index / 3][mapped_letter_index % 3]
 	
 	
 	
