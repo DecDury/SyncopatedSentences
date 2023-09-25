@@ -7,7 +7,7 @@ var time_accuracy: float = 0.000001
 var note_numb: int = 0
 var total_notes: int = 0
 
-var bpm # beats per minute of the song
+var bpm: float # beats per minute of the song
 var tpb: float # time per beat in seconds
 var music_start_time: int = 0 # scene time in msec when music started
 var song_position: int # song position in msecs
@@ -15,19 +15,11 @@ var positionInBeats: int # song position in beats
 var time_signature_numerator
 var time_signature_denominator
 
-
 signal processed_json
 
-func _enter_tree() -> void:
-	
-	#------------------
-	# Temp Song Selection
-	#------------------
-	var song_number = 3
-	var track_number = 0
-	var music_wav
-
-	# Song Selection
+#------------------
+# Song Selection
+#------------------
 	# 1: LEAP
 	# track 21 for bass
 
@@ -36,8 +28,17 @@ func _enter_tree() -> void:
 
 	# 3: Final Boss Battle 6
 	# track 3 for guitar
+
+
+
+
+func _enter_tree() -> void:
 	
+	var song_number = 3
+	var track_number = 0
+	var music_wav
 	
+	# Select Midi file and complementary wav file
 	match song_number:
 		1:
 			midi_file = "res://Audio/Music/LEAP.json"
@@ -56,6 +57,9 @@ func _enter_tree() -> void:
 	$Audio.stream = music_wav
 	
 	# reading json file
+	process_json(track_number)
+	
+func process_json(track_number: int) -> void:
 	var file = FileAccess.open(midi_file, FileAccess.READ)
 	var text = file.get_as_text()
 	
@@ -78,8 +82,6 @@ func _enter_tree() -> void:
 	print("--------------------")
 	
 	
-	
-	
 	var track = music_json["tracks"][track_number]
 	var min_pitch = track["notes"][0]["midi"]
 	var max_pitch = track["notes"][0]["midi"]
@@ -88,9 +90,6 @@ func _enter_tree() -> void:
 	var smallest_interval: float = track["notes"][1]["time"]
 	for note in track["notes"]:
 		add_note_to_array(note)
-		
-		# tally note
-		total_notes += 1
 		
 		# find pitch range
 		if note["midi"] < min_pitch:
@@ -112,6 +111,7 @@ func _enter_tree() -> void:
 	#time_accuracy = snapped(smallest_interval, 0.001)
 	
 	print("Accuracy: %f" % time_accuracy)
+	print("Total Notes: %d" % total_notes)
 	
 	KeyboardMapping.min_pitch = min_pitch
 	KeyboardMapping.max_pitch = max_pitch
@@ -119,9 +119,9 @@ func _enter_tree() -> void:
 	
 	# let other nodes know json has been processed
 	emit_signal("processed_json")
-		
+
 	
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	song_position = $Audio.get_playback_position() * 1000 # seconds to msecs
 	
 	
@@ -131,7 +131,10 @@ func add_note_to_array(note):
 	#print(msecs)
 	if !notes.has(msecs):
 		notes[msecs] = note["midi"]
-		#print("NOTES: %f, %d"% [time, notes[time]])
+		#print("NOTES: %f, %d"% [time, notes[time]])]
+		
+		# tally note
+		total_notes += 1
 
 
 
@@ -139,6 +142,7 @@ func play_with_delay(beats: int):
 	print("play with delay called - %f" % (tpb * beats))
 	
 	var with_timer = true
+	
 	if (!with_timer):
 		var delay_in_msec = tpb * beats * 1000
 		var start_time: int = Time.get_ticks_msec()

@@ -2,10 +2,11 @@ extends Node
 
 var min_pitch
 var max_pitch
-var number_of_letters: int = 30
+@export var number_of_letters: float = 30
+@export var number_of_cols: float = 10
 var pitch_range
 
-var col_to_let_ratio: float = 10/30
+var col_to_let_ratio: float = number_of_cols/number_of_letters
 
 
 
@@ -31,21 +32,39 @@ var horiz_mapping = [
 func getLetter(pitch: int) -> String:
 	
 	pitch_range = max_pitch - min_pitch
-	var let_to_pit_ratio = number_of_letters / pitch_range
-	var mapped_letter_index: int = (pitch - min_pitch) * let_to_pit_ratio
+	var let_to_pit_ratio = number_of_letters / (pitch_range+1)
+	var mapped_letter_index: int = let_to_pit_ratio * (pitch - min_pitch)
 	
-	var letter = vert_mapping[mapped_letter_index / 3 - 1][mapped_letter_index % 3]
+	print("Pitch Range: %f" % pitch_range)
+	print("Mapped Letter Index: %f" % mapped_letter_index)
+	
+		
+	var letter = vert_mapping[mapped_letter_index / 3][mapped_letter_index % 3]
 	letter = letter.to_upper()
 	
 	#print("MAPPED Pitch:%d -> Letter:%s" % [pitch, letter])
 	return letter
+
+func check_if_special_character(typed_character: String) -> String:
+	match typed_character:
+		"Semicolon":
+			typed_character = ";"
+		"Comma":
+			typed_character = ","
+		"Period":
+			typed_character = "."
+		"Slash":
+			typed_character = "/"
 	
-func getIndexForCollumn(char: String) -> int:
+	return typed_character
+	
+func getIndexForCollumn(character: String) -> int:
+	# returns index if found, -1 if unsuccessful
 	var current_index: int = 0
-	var index: int = 0
+	var index: int = -1
 	for col in vert_mapping:
 		for letter in col:
-			if letter.to_upper() == char:
+			if letter.to_upper() == character:
 				index = current_index
 				break
 		current_index += 1
