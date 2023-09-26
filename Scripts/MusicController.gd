@@ -29,12 +29,12 @@ signal processed_json
 	# 3: Final Boss Battle 6
 	# track 3 for guitar
 
-
+var song_number = 3
+var time_scale: float = 0.8
 
 
 func _enter_tree() -> void:
 	
-	var song_number = 3
 	var track_number = 0
 	var music_wav
 	
@@ -55,7 +55,7 @@ func _enter_tree() -> void:
 			music_wav = preload("res://Audio/Music/WAVs/Final Boss Battle 6 V2.WAV")
 	
 	$Audio.stream = music_wav
-	
+	$Audio.pitch_scale = time_scale
 	# reading json file
 	process_json(track_number)
 	
@@ -76,7 +76,7 @@ func process_json(track_number: int) -> void:
 	bpm = music_json["header"]["tempos"][0]["bpm"]
 	time_signature_numerator = music_json["header"]["timeSignatures"][0]["timeSignature"][0]
 	time_signature_denominator = music_json["header"]["timeSignatures"][0]["timeSignature"][1]
-	tpb = 60/bpm #time per beat in seconds
+	tpb = 60/bpm * (1/time_scale) #time per beat in seconds adjusted for time scale
 	
 	print("Song Info\nBPM=%f\nTPB=%f\nTimeSignature=%d/%d" % [bpm, tpb, time_signature_numerator, time_signature_denominator])
 	print("--------------------")
@@ -127,7 +127,9 @@ func _physics_process(_delta: float) -> void:
 	
 func add_note_to_array(note):
 	# { "duration": 0.193548, "durationTicks": 240, "midi": 30, "name": "F#1", "ticks": 73680, "time": 59.419236, "velocity": 0.74803149606299 }
-	var msecs: int = note["time"] * 1000 # seconds to msec
+	
+	# seconds to msec and modify time scale
+	var msecs: int = note["time"] * 1000 * (1/time_scale) 
 	#print(msecs)
 	if !notes.has(msecs):
 		notes[msecs] = note["midi"]
@@ -163,3 +165,7 @@ func _on_timer_timeout() -> void:
 	music_start_time = Time.get_ticks_msec()
 	print("Music Start Time: %d" % music_start_time)
 
+
+
+func _on_audio_finished() -> void:
+	print("Song over ... close level here")

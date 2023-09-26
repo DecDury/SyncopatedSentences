@@ -8,8 +8,11 @@ var visual_start_time: int
 var notes
 var note_times
 var note_numb: float = 0
+var beat_numb: int = 0
 var stage_time = 0
 var interval = 0
+var tpb_msec: int
+var next_bar_time: int
 var total_notes: float  = 0
 
 var score: int = 0
@@ -24,6 +27,7 @@ var Letter = preload("res://Objects/letter.tscn")
 
 func _on_music_controller_processed_json() -> void:
 	$SpawnManager.tpb = $MusicController.tpb
+	tpb_msec = $MusicController.tpb * 1000
 	$SpawnManager.timesig_numerator = $MusicController.time_signature_numerator
 	time_accuracy = $MusicController.time_accuracy
 	notes = $MusicController.notes
@@ -39,6 +43,8 @@ func _ready() -> void:
 	# Start Visual
 	#$Timer.start(time_accuracy)
 	visual_start_time = Time.get_ticks_msec()
+	next_bar_time = visual_start_time
+#	$SpawnManager.spawn_barline()
 	print("Visual Start Time: %d" % visual_start_time)
 	#print(note_times)
 	
@@ -50,12 +56,22 @@ func _physics_process(delta: float) -> void:
 	stage_time += delta
 	
 	var current_time = Time.get_ticks_msec() - visual_start_time
+	
+	# Spawn barline
+	if (current_time >= next_bar_time):
+		beat_numb += 1
+		print("---------------- Beat - %s ----------------" % beat_numb)
+		print("BeatTime: %d" % current_time)
+		$SpawnManager.spawn_barline()
+		next_bar_time += tpb_msec
+	
+	# Spawn letter
 	if (note_numb < total_notes && current_time >= note_times[note_numb] ):
-		print("------------------------------------------------------------")
-		#print( "CurrentTime: %d / NoteTime: %d / Diff: %d" % [current_time, note_times[note_numb], current_time - note_times[note_numb]] )
-		#print("Song Position: %d / Diff: %d" % [$MusicController.song_position, current_time - $MusicController.song_position])
-		print("Note Number: %d" % note_numb)
+		print("---------- Note - %s ----------" % note_numb)
 		spawn_letter_on_time(note_times[note_numb])
+		print( "CurrentTime: %d / NoteTime: %d / Diff: %d" % [current_time, note_times[note_numb], current_time - note_times[note_numb]] )
+		#print("Song Position: %d / Diff: %d" % [$MusicController.song_position, current_time - $MusicController.song_position])
+		
 		note_numb += 1
 		
 	

@@ -11,4 +11,5 @@ midi_file = "res://Audio/Music/boss_battle_#2.json"
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
+[connection signal="finished" from="Audio" to="." method="_on_audio_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

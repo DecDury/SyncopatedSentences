@@ -2,6 +2,7 @@ extends Node2D
 
 # preload letter scene
 @export var Letter = preload("res://Objects/letter.tscn")
+@export var Barline = preload("res://Scenes/bar_line.tscn")
 
 var target_spacing = 128
 var letter_starting_y = -1100 # relative to location of spawn manager node
@@ -10,9 +11,10 @@ var beat_offset: int = 4 # number of beats from spawn to target zones
 # should be set by stage script
 var tpb: float = 1
 var timesig_numerator: int = 4
-var number_of_targets: int = 10
+var number_of_targets: int = 0
 
 var spawn_zone_positions = []
+var barline_spawn_position: Vector2
 var letter_speed
 
 # Letter punctuality
@@ -24,14 +26,56 @@ func _enter_tree() -> void:
 	# and set spawn zones relative to them
 	var offset = 0
 	for t in $Targets.get_children():
+		number_of_targets += 1
 		t.position.x += offset
 		offset += target_spacing
 		spawn_zone_positions.append(Vector2(t.position.x, letter_starting_y))
+		
+	# determine center point for barline spawn
+	var centered_xposition
+	if (number_of_targets % 2 == 0): # number of targets is even
+		var mid_right_index = number_of_targets/2
+		var mid_left_index = mid_right_index - 1
+		
+		var mid_right_position = spawn_zone_positions[mid_right_index]
+		var mid_left_position = spawn_zone_positions[mid_left_index]
+		centered_xposition = (mid_right_position.x - mid_left_position.x) / 2 + mid_left_position.x
+		
+		print("MidLeftPosition: %s" % mid_left_position)
+		print("MidRightPosition: %s" % mid_right_position)
+		print("Centered_XPosition: %s" % centered_xposition)
+	else: # number of targets is odd
+		var center_index = number_of_targets/2 + 1
+		
+		var center_position = spawn_zone_positions[center_index]
+		centered_xposition = center_position.x
+		
+	barline_spawn_position = Vector2(centered_xposition, letter_starting_y)
+	print("Barline Spawn Position: %s" % barline_spawn_position)
+	print("-------------------------")
+		
 
 
 func _ready() -> void:
 	letter_speed = -1 * (letter_starting_y)/(tpb * beat_offset)
 	print("Letter Speed: %f" % letter_speed)
+	
+func spawn_barline() -> Node2D:
+	
+	# Instantiate Barline
+	var barline_instance = Barline.instantiate()
+	
+	# Set barline speed
+	barline_instance.speed = letter_speed
+	
+	# Set spawn position
+	barline_instance.global_position = barline_spawn_position
+	
+	$BarlineContainer.add_child(barline_instance)
+	
+	#print("Spawn Barline Called")
+	
+	return barline_instance
 	
 
 func spawn_letter(pitch) -> Node2D:
@@ -47,19 +91,14 @@ func spawn_letter(pitch) -> Node2D:
 	letter_instance.set_character(letter_char)
 	
 	# Set spawn position
-#	var horizontal_offset = (number_of_targets)/(KeyboardMapping.pitch_range)  * (pitch - KeyboardMapping.min_pitch) - 0.001
-#	print("%d %s - offset: %f" % [pitch, letter_char, horizontal_offset])
-#	letter_instance.global_position = spawn_zone_positions[horizontal_offset]
 	letter_instance.global_position = spawn_zone_positions[KeyboardMapping.getLastColIndex()]
-	print("LetterCol: %d for %s" % [KeyboardMapping.getLastColIndex(), letter_char])
+	#print("LetterCol: %d for %s" % [KeyboardMapping.getLastColIndex(), letter_char])
 	
 	
 #	pitch_range = max_pitch - min_pitch
 #	var let_to_pit_ratio = (number_of_letters-1) / (pitch_range)
 #	var mapped_letter_index: int = let_to_pit_ratio * (pitch - min_pitch)
 #	var letter = vert_mapping[mapped_letter_index / 3][mapped_letter_index % 3]
-	
-	
 	
 	#
 	$LetterContainer.add_child(letter_instance)
@@ -71,11 +110,13 @@ func spawn_letter(pitch) -> Node2D:
 # Area 2D signal handlers
 #-------------------------
 func _on_late_zone_area_exited(area: Area2D) -> void:
-	# letter was missed and should be free
-	var letter = area.get_parent()
+	
+	# node passed targetzones and should be freed
+	var node = area.get_parent() # letter or barline
+	#print("Late Zone Exited: %s" % node.name)
 	#print("%s freed" % letter.name)
-	$LetterContainer.remove_child(letter)
-	letter.queue_free()
+	#$LetterContainer.remove_child(letter)
+	node.queue_free()
 	
 	# let other nodes know a letter has been missed and the score should be decremented
 	emit_signal("tooLate") 

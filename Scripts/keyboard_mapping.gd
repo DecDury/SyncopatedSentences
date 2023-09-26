@@ -36,15 +36,6 @@ func getLetter(pitch: int) -> String:
 	var let_to_pit_ratio = (number_of_letters-1) / (pitch_range)
 	var mapped_letter_index: int = let_to_pit_ratio * (pitch - min_pitch)
 	
-	print("Pitch Range: %f" % pitch_range)
-	print("Mapped Letter Index: %f" % mapped_letter_index)
-	
-#	for i in range(min_pitch, max_pitch):
-#		var index: int = let_to_pit_ratio * (i - min_pitch)
-#		print("%d -> %s" % [ i-min_pitch, vert_mapping[index / 3][index % 3] ])
-#		print("vert_mapping[%d][%d]" % [(index / 3), (index % 3)] )
-#		print("----------------")
-	
 	last_col_index = mapped_letter_index / 3 
 	var letter = vert_mapping[last_col_index][mapped_letter_index % 3]
 	letter = letter.to_upper()
