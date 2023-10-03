@@ -6,7 +6,7 @@ var time_accuracy
 var visual_start_time: int
 
 var notes
-var note_times
+var note_times = []
 var note_numb: float = 0
 var beat_numb: int = 0
 var stage_time = 0
@@ -63,7 +63,7 @@ func _physics_process(delta: float) -> void:
 		print("---------------- Beat - %s ----------------" % beat_numb)
 		print("BeatTime: %d" % current_time)
 		$SpawnManager.spawn_barline()
-		next_bar_time += tpb_msec
+		next_bar_time = visual_start_time + beat_numb * tpb_msec
 	
 	# Spawn letter
 	if (note_numb < total_notes && current_time >= note_times[note_numb] ):
@@ -71,7 +71,6 @@ func _physics_process(delta: float) -> void:
 		spawn_letter_on_time(note_times[note_numb])
 		print( "CurrentTime: %d / NoteTime: %d / Diff: %d" % [current_time, note_times[note_numb], current_time - note_times[note_numb]] )
 		#print("Song Position: %d / Diff: %d" % [$MusicController.song_position, current_time - $MusicController.song_position])
-		
 		note_numb += 1
 		
 	
@@ -159,7 +158,14 @@ func _input(event: InputEvent) -> void:
 				#print("MISS")
 
 
-func _on_spawn_manager_too_late() -> void:
+func _on_spawn_manager_too_late(node) -> void:
 	# Letter missed target zone and score should be decremented
-	combo_multiplier = 1 # reset combo multiplier
-	score -= 10 * combo_multiplier
+	if (node.name.contains("Letter")):
+		print("Is Letter")
+		combo_multiplier = 1 # reset combo multiplier
+		score -= 2 * combo_multiplier
+
+
+func _on_spawn_manager_deadcenter() -> void:
+#	if (node)
+	pass # Replace with function body.

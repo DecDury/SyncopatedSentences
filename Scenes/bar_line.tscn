@@ -1,20 +1,54 @@
-[gd_scene load_steps=4 format=3 uid="uid://b5hfoinm7p4nw"]
+[gd_scene load_steps=7 format=3 uid="uid://b0xfsfr6pgj5l"]
 
-[ext_resource type="Texture2D" uid="uid://cij4otjb10rhn" path="res://Sprites/Barline.png" id="1_5q0el"]
 [ext_resource type="Script" path="res://Scripts/bar_line.gd" id="1_w38ly"]
+[ext_resource type="Texture2D" uid="uid://c228r0ga7ajbs" path="res://Sprites/White1x1.png" id="2_vh134"]
+[ext_resource type="Texture2D" uid="uid://c8uteuu7w2tao" path="res://Sprites/PulseEnd1x1.png" id="3_ch05g"]
+[ext_resource type="Texture2D" uid="uid://le4lnqw4uhs8" path="res://Sprites/PulseInbetween1x1.png" id="4_mfrky"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vvvgg"]
 size = Vector2(231.667, 250)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_2y4ef"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ch05g")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_mfrky")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_vh134")
+}],
+"loop": true,
+"name": &"pulse",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_vh134")
+}],
+"loop": true,
+"name": &"white",
+"speed": 5.0
+}]
+
 [node name="BarLine" type="Node2D"]
-scale = Vector2(0.6, 0.05)
 script = ExtResource("1_w38ly")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(3, 3)
-texture = ExtResource("1_5q0el")
+visible = false
+position = Vector2(750, 0)
+scale = Vector2(1500, 2)
+texture = ExtResource("2_vh134")
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("RectangleShape2D_vvvgg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(750, 0)
+scale = Vector2(1500, 2)
+sprite_frames = SubResource("SpriteFrames_2y4ef")
+animation = &"white"

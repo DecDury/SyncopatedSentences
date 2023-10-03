@@ -1,13 +1,109 @@
-[gd_scene load_steps=4 format=3 uid="uid://dsmq2w3tixxtu"]
+[gd_scene load_steps=16 format=3 uid="uid://dsmq2w3tixxtu"]
 
 [ext_resource type="Script" path="res://Scripts/spawn_manager.gd" id="1_khkx0"]
 [ext_resource type="PackedScene" uid="uid://brniqwejdf7xj" path="res://Scenes/KeyTarget.tscn" id="2_gf6p0"]
+[ext_resource type="Script" path="res://Scripts/KeyTarget.gd" id="3_7leux"]
+[ext_resource type="Texture2D" uid="uid://c8uteuu7w2tao" path="res://Sprites/PulseEnd1x1.png" id="3_8hgtg"]
+[ext_resource type="Texture2D" uid="uid://c228r0ga7ajbs" path="res://Sprites/White1x1.png" id="3_21bl2"]
+[ext_resource type="Texture2D" uid="uid://le4lnqw4uhs8" path="res://Sprites/PulseInbetween1x1.png" id="4_1uq7u"]
+[ext_resource type="Texture2D" uid="uid://b8lnqamcug8td" path="res://Sprites/KeyBackground.png" id="4_vgf2t"]
+[ext_resource type="Texture2D" uid="uid://dfqbf5j6l42ql" path="res://Sprites/KeyBackgroundPerfect.png" id="5_kw46c"]
+[ext_resource type="Texture2D" uid="uid://c8yibgkah5bna" path="res://Sprites/KeyBackgroundIndexFinger.png" id="6_pwypr"]
+[ext_resource type="Texture2D" uid="uid://bto450ihjgfmf" path="res://Sprites/KeyBackgroundMiss.png" id="7_31t0n"]
+[ext_resource type="Script" path="res://Scripts/StationaryBarLine.gd" id="8_ejamr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf648"]
 size = Vector2(1056.25, 20)
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_2y4ef"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_8hgtg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_1uq7u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_21bl2")
+}],
+"loop": true,
+"name": &"pulse",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_21bl2")
+}],
+"loop": true,
+"name": &"white",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bf1ie"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_scewk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_vgf2t")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_kw46c")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_pwypr")
+}],
+"loop": true,
+"name": &"indexfinger",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_31t0n")
+}],
+"loop": true,
+"name": &"miss",
+"speed": 5.0
+}]
+
 [node name="SpawnManager" type="Node2D"]
 script = ExtResource("1_khkx0")
+
+[node name="EarlyZone" type="Area2D" parent="."]
+position = Vector2(575, -85)
+
+[node name="CollisionShapeEarly" type="CollisionShape2D" parent="EarlyZone"]
+scale = Vector2(1.5, 2.083)
+shape = SubResource("RectangleShape2D_lf648")
+debug_color = Color(1, 1, 0, 0.419608)
+
+[node name="PerfectZone" type="Area2D" parent="."]
+position = Vector2(575, 0)
+scale = Vector2(1, 2.90987)
+
+[node name="CollisionShapePerfect" type="CollisionShape2D" parent="PerfectZone"]
+scale = Vector2(1.5, 2.083)
+shape = SubResource("RectangleShape2D_lf648")
+debug_color = Color(0.188235, 0.639216, 0.184314, 0.419608)
+
+[node name="LateZone" type="Area2D" parent="."]
+position = Vector2(575, 65)
+
+[node name="CollisionShapeLate" type="CollisionShape2D" parent="LateZone"]
+scale = Vector2(1.5, 2.083)
+shape = SubResource("RectangleShape2D_lf648")
+debug_color = Color(0.890196, 0.301961, 0.337255, 0.419608)
 
 [node name="LetterContainer" type="Node2D" parent="."]
 z_index = 2
@@ -15,30 +111,26 @@ z_index = 2
 [node name="BarlineContainer" type="Node2D" parent="."]
 z_index = 1
 
-[node name="EarlyZone" type="Area2D" parent="."]
-position = Vector2(1438, -85)
+[node name="StationaryBarLine" type="Node2D" parent="."]
+position = Vector2(575, 0)
+script = ExtResource("8_ejamr")
 
-[node name="CollisionShapeEarly" type="CollisionShape2D" parent="EarlyZone"]
-scale = Vector2(2.88, 4)
-shape = SubResource("RectangleShape2D_lf648")
-debug_color = Color(1, 1, 0, 0.419608)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StationaryBarLine"]
+position = Vector2(750, 0)
+scale = Vector2(1500, 2)
+sprite_frames = SubResource("SpriteFrames_2y4ef")
+animation = &"white"
 
-[node name="PerfectZone" type="Area2D" parent="."]
-position = Vector2(1438, 0)
-scale = Vector2(1, 2.90987)
+[node name="CollisionShapeDeadCenter" type="Area2D" parent="StationaryBarLine"]
+position = Vector2(-575, 0)
 
-[node name="CollisionShapePerfect" type="CollisionShape2D" parent="PerfectZone"]
-scale = Vector2(2.88, 1.5)
-shape = SubResource("RectangleShape2D_lf648")
-debug_color = Color(0.188235, 0.639216, 0.184314, 0.419608)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StationaryBarLine/CollisionShapeDeadCenter"]
+position = Vector2(575, 0)
+scale = Vector2(80, 0.5)
+shape = SubResource("RectangleShape2D_bf1ie")
+debug_color = Color(0.533333, 0.431373, 0.952941, 0.584314)
 
-[node name="LateZone" type="Area2D" parent="."]
-position = Vector2(1438, 65)
-
-[node name="CollisionShapeLate" type="CollisionShape2D" parent="LateZone"]
-scale = Vector2(2.88, 2)
-shape = SubResource("RectangleShape2D_lf648")
-debug_color = Color(0.890196, 0.301961, 0.337255, 0.419608)
+[node name="Timer" type="Timer" parent="StationaryBarLine"]
 
 [node name="Targets" type="Node2D" parent="."]
 
@@ -48,13 +140,33 @@ debug_color = Color(0.890196, 0.301961, 0.337255, 0.419608)
 
 [node name="Target3" parent="Targets" instance=ExtResource("2_gf6p0")]
 
-[node name="Target4" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target4" type="Node2D" parent="Targets"]
+script = ExtResource("3_7leux")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Targets/Target4"]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_scewk")
+animation = &"indexfinger"
+
+[node name="Timer" type="Timer" parent="Targets/Target4"]
+wait_time = 0.1
+one_shot = true
 
 [node name="Target5" parent="Targets" instance=ExtResource("2_gf6p0")]
 
 [node name="Target6" parent="Targets" instance=ExtResource("2_gf6p0")]
 
-[node name="Target7" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target7" type="Node2D" parent="Targets"]
+script = ExtResource("3_7leux")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Targets/Target7"]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_scewk")
+animation = &"indexfinger"
+
+[node name="Timer" type="Timer" parent="Targets/Target7"]
+wait_time = 0.1
+one_shot = true
 
 [node name="Target8" parent="Targets" instance=ExtResource("2_gf6p0")]
 
@@ -62,4 +174,11 @@ debug_color = Color(0.890196, 0.301961, 0.337255, 0.419608)
 
 [node name="Target10" parent="Targets" instance=ExtResource("2_gf6p0")]
 
+[connection signal="area_entered" from="EarlyZone" to="." method="_on_early_zone_area_entered"]
+[connection signal="area_entered" from="PerfectZone" to="." method="_on_perfect_zone_area_entered"]
+[connection signal="area_entered" from="LateZone" to="." method="_on_late_zone_area_entered"]
 [connection signal="area_exited" from="LateZone" to="." method="_on_late_zone_area_exited"]
+[connection signal="area_entered" from="StationaryBarLine/CollisionShapeDeadCenter" to="." method="_on_collision_shape_barline_area_entered"]
+[connection signal="timeout" from="StationaryBarLine/Timer" to="StationaryBarLine" method="_on_timer_timeout"]
+[connection signal="timeout" from="Targets/Target4/Timer" to="Targets/Target4" method="_on_timer_timeout" flags=18]
+[connection signal="timeout" from="Targets/Target7/Timer" to="Targets/Target7" method="_on_timer_timeout" flags=18]

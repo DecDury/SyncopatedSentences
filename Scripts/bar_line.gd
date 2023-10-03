@@ -2,6 +2,9 @@ extends Node2D
 
 @export var speed: float = 1.0
 
+
+func set_punctuality(time: int): # 
+	pass
 #-------------------------
 # Physics and Position
 #-------------------------

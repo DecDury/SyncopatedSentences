@@ -9,7 +9,6 @@
 
 [node name="Letter" type="Node2D"]
 script = ExtResource("1_yqdl8")
-speed = 4.0
 
 [node name="KeyBackground" type="Sprite2D" parent="."]
 scale = Vector2(0.25, 0.25)

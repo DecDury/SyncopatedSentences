@@ -6,6 +6,7 @@ var notes = {}
 var time_accuracy: float = 0.000001
 var note_numb: int = 0
 var total_notes: int = 0
+var last_timestamp: float
 
 var bpm: float # beats per minute of the song
 var tpb: float # time per beat in seconds
@@ -29,8 +30,8 @@ signal processed_json
 	# 3: Final Boss Battle 6
 	# track 3 for guitar
 
-var song_number = 3
-var time_scale: float = 0.8
+var song_number = 2
+var time_scale: float = 1
 
 
 func _enter_tree() -> void:
@@ -110,6 +111,10 @@ func process_json(track_number: int) -> void:
 	# Set smallest interval to time_accuracy
 	#time_accuracy = snapped(smallest_interval, 0.001)
 	
+	# find last time stamp
+	last_timestamp = track["notes"][-1]["time"] # -1 gets last index
+	
+	print("Last Timestamp: %f" % last_timestamp)
 	print("Accuracy: %f" % time_accuracy)
 	print("Total Notes: %d" % total_notes)
 	

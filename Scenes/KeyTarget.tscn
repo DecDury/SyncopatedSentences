@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://brniqwejdf7xj"]
+[gd_scene load_steps=7 format=3 uid="uid://brniqwejdf7xj"]
 
 [ext_resource type="Script" path="res://Scripts/KeyTarget.gd" id="1_6j832"]
 [ext_resource type="Texture2D" uid="uid://b8lnqamcug8td" path="res://Sprites/KeyBackground.png" id="1_75kqd"]
 [ext_resource type="Texture2D" uid="uid://bto450ihjgfmf" path="res://Sprites/KeyBackgroundMiss.png" id="2_set50"]
 [ext_resource type="Texture2D" uid="uid://dfqbf5j6l42ql" path="res://Sprites/KeyBackgroundPerfect.png" id="3_bjhhx"]
+[ext_resource type="Texture2D" uid="uid://c8yibgkah5bna" path="res://Sprites/KeyBackgroundIndexFinger.png" id="4_ftmpj"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_scewk"]
 animations = [{
@@ -21,6 +22,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_ftmpj")
+}],
+"loop": true,
+"name": &"indexfinger",
 "speed": 5.0
 }, {
 "frames": [{

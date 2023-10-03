@@ -20,6 +20,7 @@ var letter_speed
 # Letter punctuality
 enum {miss, early, perfect, late}
 signal tooLate
+signal deadcenter
 
 func _enter_tree() -> void:
 	# Set spacing of target zones
@@ -94,12 +95,6 @@ func spawn_letter(pitch) -> Node2D:
 	letter_instance.global_position = spawn_zone_positions[KeyboardMapping.getLastColIndex()]
 	#print("LetterCol: %d for %s" % [KeyboardMapping.getLastColIndex(), letter_char])
 	
-	
-#	pitch_range = max_pitch - min_pitch
-#	var let_to_pit_ratio = (number_of_letters-1) / (pitch_range)
-#	var mapped_letter_index: int = let_to_pit_ratio * (pitch - min_pitch)
-#	var letter = vert_mapping[mapped_letter_index / 3][mapped_letter_index % 3]
-	
 	#
 	$LetterContainer.add_child(letter_instance)
 	return letter_instance
@@ -109,14 +104,45 @@ func spawn_letter(pitch) -> Node2D:
 #-------------------------
 # Area 2D signal handlers
 #-------------------------
+func _on_early_zone_area_entered(area: Area2D) -> void:
+	var letter_node = area.get_parent()
+	if letter_node.name.contains("Letter"):
+		letter_node.set_punctuality(early)
+
+
+func _on_perfect_zone_area_entered(area: Area2D) -> void:
+	var letter_node = area.get_parent()
+#	print("%s %s" % [letter_node.name, "bruh"])
+	if letter_node.name.contains("Letter"):
+		letter_node.set_punctuality(perfect)
+	else:
+		$StationaryBarLine.pulse(tpb/2)
+
+
+func _on_late_zone_area_entered(area: Area2D) -> void:
+	var letter_node = area.get_parent()
+	if letter_node.name.contains("Letter"):
+		letter_node.set_punctuality(late)
+
+
 func _on_late_zone_area_exited(area: Area2D) -> void:
 	
 	# node passed targetzones and should be freed
 	var node = area.get_parent() # letter or barline
 	#print("Late Zone Exited: %s" % node.name)
 	#print("%s freed" % letter.name)
-	#$LetterContainer.remove_child(letter)
-	node.queue_free()
 	
 	# let other nodes know a letter has been missed and the score should be decremented
-	emit_signal("tooLate") 
+#	emit_signal("tooLate")
+	tooLate.emit(node)
+	
+	node.queue_free()
+	
+	
+
+func _on_collision_shape_barline_area_entered(area: Area2D) -> void:
+	var barline_node = area.get_parent()
+	if barline_node.name.contains("Barline"):
+		$StationaryBarLine.pulse(tpb*2)
+	
+	deadcenter.emit()
