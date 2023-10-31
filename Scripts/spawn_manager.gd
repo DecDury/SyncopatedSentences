@@ -115,8 +115,8 @@ func _on_perfect_zone_area_entered(area: Area2D) -> void:
 #	print("%s %s" % [letter_node.name, "bruh"])
 	if letter_node.name.contains("Letter"):
 		letter_node.set_punctuality(perfect)
-	else:
-		$StationaryBarLine.pulse(tpb/2)
+#	else:
+#		$StationaryBarLine.pulse(tpb/2)
 
 
 func _on_late_zone_area_entered(area: Area2D) -> void:

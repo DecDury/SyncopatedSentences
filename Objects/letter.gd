@@ -14,12 +14,8 @@ func set_character(inputChar):
 func get_character() -> String:
 	return $text.text
 	
-func change_color(color: Color):
-	$text.text = "[center][color=%s]%s[/color][/center]" % [color, self.text]
-	
 func set_punctuality(time: int):
 	punctuality = time
-
 
 #-------------------------
 # Physics and Position
@@ -28,5 +24,7 @@ func _physics_process(delta: float) -> void:
 	global_position.y += speed * delta
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
+	pass
 	#punctuality += 1
-	print("%s - %s: [Punctuality = %d]" % [name, $text.text, punctuality])
+#	print("%s - %s: [Punctuality = %d]" % [name, $text.text, punctuality])
+	

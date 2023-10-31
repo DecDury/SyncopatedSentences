@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bths3dxms243"]
+[gd_scene load_steps=5 format=3 uid="uid://bths3dxms243"]
 
 [ext_resource type="FontFile" uid="uid://crdlyccmbma4o" path="res://Fonts/special-elite/SpecialElite.ttf" id="1_cmx3n"]
 [ext_resource type="Script" path="res://Objects/letter.gd" id="1_yqdl8"]
 [ext_resource type="Texture2D" uid="uid://b8lnqamcug8td" path="res://Sprites/KeyBackground.png" id="2_wfv6x"]
-[ext_resource type="AudioStream" uid="uid://cge4on5punbsb" path="res://Audio/SoundEffects/GUI_Sound_Effects_by_Lokif/click.wav" id="3_icd3y"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_4kaxs"]
 
@@ -35,11 +34,7 @@ scroll_active = false
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-scale = Vector2(3, 3)
 shape = SubResource("CircleShape2D_4kaxs")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("3_icd3y")
-max_polyphony = 3
-
+[connection signal="tree_exiting" from="." to="." method="_on_tree_exiting"]
 [connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]

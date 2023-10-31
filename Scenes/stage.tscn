@@ -21,4 +21,5 @@ position = Vector2(400, 1000)
 [connection signal="deadcenter" from="SpawnManager" to="." method="_on_spawn_manager_deadcenter"]
 [connection signal="tooLate" from="SpawnManager" to="." method="_on_spawn_manager_too_late"]
 [connection signal="processed_json" from="MusicController" to="." method="_on_music_controller_processed_json"]
+[connection signal="song_finished" from="MusicController" to="." method="_on_music_controller_song_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

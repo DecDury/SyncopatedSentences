@@ -17,6 +17,7 @@ var time_signature_numerator
 var time_signature_denominator
 
 signal processed_json
+signal song_finished
 
 #------------------
 # Song Selection
@@ -30,8 +31,8 @@ signal processed_json
 	# 3: Final Boss Battle 6
 	# track 3 for guitar
 
-var song_number = 2
-var time_scale: float = 1
+var song_number = 3
+var time_scale: float = 0.9
 
 
 func _enter_tree() -> void:
@@ -162,7 +163,7 @@ func play_with_delay(beats: int):
 		music_start_time = Time.get_ticks_msec()
 		print("Music Start Time: %d" % music_start_time)
 	else:
-		$Timer.start(tpb * beats)
+		$StartTimer.start(tpb * beats)
 	
 
 func _on_timer_timeout() -> void:
@@ -173,4 +174,10 @@ func _on_timer_timeout() -> void:
 
 
 func _on_audio_finished() -> void:
+	$EndTimer.start(tpb * 4)
 	print("Song over ... close level here")
+
+
+func _on_end_timer_timeout() -> void:
+	emit_signal("song_finished")
+#	get_tree().quit()

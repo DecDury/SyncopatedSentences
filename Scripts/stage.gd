@@ -16,6 +16,7 @@ var next_bar_time: int
 var total_notes: float  = 0
 
 var score: int = 0
+var raw_score: float = 0
 var combo_multiplier: int = 1
 enum {miss, early, perfect, late}
 
@@ -44,6 +45,7 @@ func _ready() -> void:
 	#$Timer.start(time_accuracy)
 	visual_start_time = Time.get_ticks_msec()
 	next_bar_time = visual_start_time
+	print("Next Bar Time: %f" % next_bar_time)
 #	$SpawnManager.spawn_barline()
 	print("Visual Start Time: %d" % visual_start_time)
 	#print(note_times)
@@ -122,19 +124,23 @@ func _input(event: InputEvent) -> void:
 					miss:
 						# Right letter, wrong time
 						combo_multiplier = 1 # reset combo multiplier
+						raw_score -= 2
 						score -= 2 * combo_multiplier
 						target.miss() # play miss animation
 						punctuality_GUI_label.set_text("Miss")
 						#print("MISS")
 					early:
+						raw_score += 1
 						score += 1 * combo_multiplier
 						punctuality_GUI_label.set_text("Early")
 						#print("EARLY")
 					perfect:
+						raw_score += 2
 						score += 2 * combo_multiplier
 						punctuality_GUI_label.set_text("Perfect!!!")
 						#print("PERFECT")
 					late:
+						raw_score += 1
 						score += 1 * combo_multiplier
 						punctuality_GUI_label.set_text("Late")
 						#print("LATE")
@@ -145,7 +151,7 @@ func _input(event: InputEvent) -> void:
 					if combo_multiplier < 9:
 						combo_multiplier += 1
 						
-					target.hit() # play perfect animation
+					target.hit() # play hit animation
 						
 					# free
 					letter.queue_free()
@@ -161,7 +167,6 @@ func _input(event: InputEvent) -> void:
 func _on_spawn_manager_too_late(node) -> void:
 	# Letter missed target zone and score should be decremented
 	if (node.name.contains("Letter")):
-		print("Is Letter")
 		combo_multiplier = 1 # reset combo multiplier
 		score -= 2 * combo_multiplier
 
@@ -169,3 +174,11 @@ func _on_spawn_manager_too_late(node) -> void:
 func _on_spawn_manager_deadcenter() -> void:
 #	if (node)
 	pass # Replace with function body.
+
+
+func _on_music_controller_song_finished() -> void:
+	var stats = load("res://Scenes/stage_stats.tscn").instantiate()
+	stats.calc_stats(score, raw_score, total_notes)
+	add_child(stats)
+	
+	

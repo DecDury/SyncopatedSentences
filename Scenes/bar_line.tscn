@@ -45,6 +45,7 @@ texture = ExtResource("2_vh134")
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1, 0.1)
 shape = SubResource("RectangleShape2D_vvvgg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
