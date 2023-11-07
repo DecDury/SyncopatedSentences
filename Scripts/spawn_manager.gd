@@ -5,7 +5,7 @@ extends Node2D
 @export var Barline = preload("res://Scenes/bar_line.tscn")
 
 var target_spacing = 128
-var letter_starting_y = -1100 # relative to location of spawn manager node
+var letter_starting_y = -900 # relative to location of spawn manager node
 var beat_offset: int = 4 # number of beats from spawn to target zones
 
 # should be set by stage script
@@ -93,7 +93,7 @@ func spawn_letter(pitch) -> Node2D:
 	
 	# Set spawn position
 	letter_instance.global_position = spawn_zone_positions[KeyboardMapping.getLastColIndex()]
-	#print("LetterCol: %d for %s" % [KeyboardMapping.getLastColIndex(), letter_char])
+	print("LetterCol: %d for %s" % [KeyboardMapping.getLastColIndex(), letter_char])
 	
 	#
 	$LetterContainer.add_child(letter_instance)
@@ -134,7 +134,8 @@ func _on_late_zone_area_exited(area: Area2D) -> void:
 	
 	# let other nodes know a letter has been missed and the score should be decremented
 #	emit_signal("tooLate")
-	tooLate.emit(node)
+	if (node.name.contains("Letter")):
+		tooLate.emit(node)
 	
 	node.queue_free()
 	

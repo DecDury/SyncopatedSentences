@@ -13,54 +13,57 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_rphni")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="NewHighScore" type="HBoxContainer" parent="VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="NewHighScore" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 
-[node name="HighScoreLabel" type="Label" parent="VBoxContainer/NewHighScore"]
+[node name="HighScoreLabel" type="Label" parent="PanelContainer/VBoxContainer/NewHighScore"]
 layout_mode = 2
 text = "New High Score: "
 
-[node name="HighScore" type="Label" parent="VBoxContainer/NewHighScore"]
+[node name="HighScore" type="Label" parent="PanelContainer/VBoxContainer/NewHighScore"]
 layout_mode = 2
 
-[node name="Score" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Score" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="ScoreLabel" type="Label" parent="VBoxContainer/Score"]
+[node name="ScoreLabel" type="Label" parent="PanelContainer/VBoxContainer/Score"]
 layout_mode = 2
 text = "Score: "
 
-[node name="Score" type="Label" parent="VBoxContainer/Score"]
+[node name="Score" type="Label" parent="PanelContainer/VBoxContainer/Score"]
 layout_mode = 2
 
-[node name="Accuracy" type="HBoxContainer" parent="VBoxContainer"]
+[node name="Accuracy" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="AccuracyLabel" type="Label" parent="VBoxContainer/Accuracy"]
+[node name="AccuracyLabel" type="Label" parent="PanelContainer/VBoxContainer/Accuracy"]
 layout_mode = 2
 text = "Accuracy: "
 
-[node name="Accuracy" type="Label" parent="VBoxContainer/Accuracy"]
+[node name="Accuracy" type="Label" parent="PanelContainer/VBoxContainer/Accuracy"]
 layout_mode = 2
 
-[node name="PreviousHighScore" type="HBoxContainer" parent="VBoxContainer"]
+[node name="PreviousHighScore" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="HighScoreLabel" type="Label" parent="VBoxContainer/PreviousHighScore"]
+[node name="HighScoreLabel" type="Label" parent="PanelContainer/VBoxContainer/PreviousHighScore"]
 layout_mode = 2
 text = "Previous High Score: "
 
-[node name="HighScore" type="Label" parent="VBoxContainer/PreviousHighScore"]
+[node name="HighScore" type="Label" parent="PanelContainer/VBoxContainer/PreviousHighScore"]
 layout_mode = 2
 
-[node name="MenuButton" type="Button" parent="VBoxContainer"]
+[node name="MenuButton" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Back to menu"
 
-[connection signal="pressed" from="VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/MenuButton" to="." method="_on_menu_button_pressed"]

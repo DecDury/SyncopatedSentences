@@ -32,7 +32,7 @@ signal song_finished
 	# track 3 for guitar
 
 var song_number = 3
-var time_scale: float = 0.9
+var time_scale: float = 100
 
 
 func _enter_tree() -> void:
@@ -43,6 +43,8 @@ func _enter_tree() -> void:
 	# Select Midi file and complementary wav file
 	match song_number:
 		1:
+			### Need to remove this song ###
+			### Midi file may be faulty ###
 			midi_file = "res://Audio/Music/LEAP.json"
 			track_number = 21 # bass
 			music_wav = preload("res://Audio/Music/WAVs/leap.WAV")
@@ -159,25 +161,22 @@ func play_with_delay(beats: int):
 			print("Intro: %d" % (current_time - start_time))
 			current_time = Time.get_ticks_msec()
 		
-		$Audio.play()
-		music_start_time = Time.get_ticks_msec()
-		print("Music Start Time: %d" % music_start_time)
+		play_music()
 	else:
 		$StartTimer.start(tpb * beats)
-	
-
-func _on_timer_timeout() -> void:
+		
+func play_music() -> void:
 	$Audio.play()
 	music_start_time = Time.get_ticks_msec()
 	print("Music Start Time: %d" % music_start_time)
+	
 
-
+func _on_timer_timeout() -> void:
+	play_music()
 
 func _on_audio_finished() -> void:
 	$EndTimer.start(tpb * 4)
-	print("Song over ... close level here")
 
 
 func _on_end_timer_timeout() -> void:
-	emit_signal("song_finished")
-#	get_tree().quit()
+	emit_signal("song_finished") # listened to by stage to spawn stats UI
