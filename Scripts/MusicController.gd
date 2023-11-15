@@ -11,7 +11,8 @@ var last_timestamp: float
 var bpm: float # beats per minute of the song
 var tpb: float # time per beat in seconds
 var music_start_time: int = 0 # scene time in msec when music started
-var song_position: int # song position in msecs
+var song_position_msec: int # song position in msecs
+var song_position: float # song position in secs
 var positionInBeats: int # song position in beats
 var time_signature_numerator
 var time_signature_denominator
@@ -32,7 +33,7 @@ signal song_finished
 	# track 3 for guitar
 
 var song_number = 3
-var time_scale: float = 100
+var time_scale: float = 0.8
 
 
 func _enter_tree() -> void:
@@ -130,7 +131,7 @@ func process_json(track_number: int) -> void:
 
 	
 func _physics_process(_delta: float) -> void:
-	song_position = $Audio.get_playback_position() * 1000 # seconds to msecs
+	song_position_msec = $Audio.get_playback_position() * 1000 # seconds to msecs
 	
 	
 func add_note_to_array(note):
@@ -175,8 +176,17 @@ func _on_timer_timeout() -> void:
 	play_music()
 
 func _on_audio_finished() -> void:
-	$EndTimer.start(tpb * 4)
+	$EndTimer.start(tpb * 1)
 
 
 func _on_end_timer_timeout() -> void:
 	emit_signal("song_finished") # listened to by stage to spawn stats UI
+
+
+func _on_stage_pause() -> void:
+	song_position = $Audio.get_playback_position()
+	$Audio.stop()
+
+
+func _on_stage_play() -> void:
+	$Audio.play(song_position)

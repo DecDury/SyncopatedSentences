@@ -1,11 +1,12 @@
 extends Control
-@onready var stage = preload("res://Scenes/stage.tscn")
+#@onready var stage = preload("res://Scenes/stage.tscn")
 
 func _ready() -> void:
-	$VBoxContainer/StartButton.grab_focus()
+	$PanelContainer/VBoxContainer/StartButton.grab_focus()
 
 func _on_start_button_pressed() -> void:
-	get_tree().change_scene_to_packed(stage)
+	var stage_select = load("res://Scenes/stage_select.tscn")
+	get_tree().change_scene_to_packed(stage_select)
 
 
 func _on_options_button_pressed() -> void:

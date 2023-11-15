@@ -19,17 +19,28 @@ var total_notes: float  = 0
 var beat_time = 0
 
 var score: int = 0
+var song_number: int = 0
+var time_scale: float
 var raw_score: float = 0
 var combo_multiplier: int = 1
 enum {miss, early, perfect, late}
 
 var Letter = preload("res://Objects/letter.tscn")
 
+signal pause
+signal play
+
 @onready var targets = $SpawnManager/Targets
 @onready var punctuality_GUI_label = $GUI/RightBar/VBoxContainer/PunctualityQualifier
 @onready var score_label = $GUI/LeftBar/HBoxContainer/ScoreBox/Score/ScorePoints
 @onready var combo_label = $GUI/LeftBar/HBoxContainer/ScoreBox/Combo/ComboMultiplier
 @onready var progress_bar = $GUI/TopBar/ProgressBar
+@onready var pause_menu = $PauseMenu
+
+func _enter_tree() -> void:
+	$MusicController.song_number = Save.song_number
+	$MusicController.time_scale = Save.time_scale
+	
 
 func _on_music_controller_processed_json() -> void:
 	$SpawnManager.tpb = $MusicController.tpb
@@ -38,6 +49,8 @@ func _on_music_controller_processed_json() -> void:
 	tpb_msec = $MusicController.tpb * 1000
 	time_accuracy = $MusicController.time_accuracy
 	
+	song_number = $MusicController.song_number
+	time_scale = $MusicController.time_scale
 	notes = $MusicController.notes
 	note_times = notes.keys()
 	print("---------------\nNote Times\n%s\n---------------" % notes)
@@ -64,7 +77,6 @@ func _process(_delta: float) -> void:
 	combo_label.set_text(str(combo_multiplier))
 
 func _physics_process(delta: float) -> void:
-	stage_time += delta
 	
 	var current_time = Time.get_ticks_msec() - visual_start_time
 	var pitch
@@ -94,21 +106,23 @@ func _physics_process(delta: float) -> void:
 			# note occurs on beat
 			# thus bar and note spawn at same time
 			print("---------------- Beat with Letter -------- %d --------" % current_time)
+			print("note_time %% tpb_msec = %d" % (note_time % tpb_msec))
 			$SpawnManager.spawn_barline()
 			bar_check_point = note_time
 			next_bar_time = bar_check_point + tpb_msec
-			beat_numb_since_checkpoint = 0
+			beat_numb_since_checkpoint = 0 # changing this to 1 kind of helps
 			return
 	
 	# Spawn barline
 	if (current_time >= next_bar_time):
 		beat_numb_since_checkpoint += 1
-		beat_time = current_time
 		print("---------------- Beats since checkpoint - %s -------- %d --------" % [beat_numb_since_checkpoint, current_time])
-	
+		print("Current Time: %d - Next Bar Time: %d" % [current_time, next_bar_time])
 		$SpawnManager.spawn_barline()
 #		next_bar_time = visual_start_time + beat_numb * tpb_msec
 		next_bar_time = bar_check_point + tpb_msec * beat_numb_since_checkpoint
+		print("Bar Checkpoint: %d" % bar_check_point)
+		print("New Next Bar Time: %d" % next_bar_time)
 		
 		
 
@@ -130,6 +144,13 @@ func _input(event: InputEvent) -> void:
 		key_typed = typed_event.as_text()
 		key_typed = KeyboardMapping.check_if_special_character(key_typed)
 		print("INPUT: " + key_typed)
+		
+		# Check if escape key was pressed
+		if key_typed == "Escape":
+			emit_signal("pause")
+#			$SpawnManager.get_tree().paused = true
+			pause_menu.visible = true
+			pause_menu.resume_button.grab_focus()
 	
 		# Get target index for leter miss or hit animation
 		var target_index = KeyboardMapping.getIndexForCollumn(key_typed)
@@ -192,15 +213,20 @@ func _on_spawn_manager_too_late(node) -> void:
 	combo_multiplier = 1 # reset combo multiplier
 	score -= 2 * combo_multiplier
 
-
-func _on_spawn_manager_deadcenter() -> void:
-#	if (node)
-	pass # Replace with function body.
-
-
 func _on_music_controller_song_finished() -> void:
 	var stats = load("res://Scenes/stage_stats.tscn").instantiate()
-	stats.calc_stats(score, raw_score, total_notes)
+	stats.calc_stats(score, raw_score, total_notes, song_number, time_scale)
 	add_child(stats)
+	set_physics_process(false)
+	set_process(false)
 	
 	
+
+
+func _on_pause_menu_play() -> void:
+#	$SpawnManager.get_tree().paused = false
+	emit_signal("play")
+
+
+func _on_pause_menu_restart() -> void:
+	get_tree().reload_current_scene()

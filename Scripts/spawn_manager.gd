@@ -5,7 +5,7 @@ extends Node2D
 @export var Barline = preload("res://Scenes/bar_line.tscn")
 
 var target_spacing = 128
-var letter_starting_y = -900 # relative to location of spawn manager node
+var letter_starting_y = -950 # relative to location of spawn manager node
 var beat_offset: int = 4 # number of beats from spawn to target zones
 
 # should be set by stage script
@@ -20,7 +20,8 @@ var letter_speed
 # Letter punctuality
 enum {miss, early, perfect, late}
 signal tooLate
-signal deadcenter
+signal pause
+signal play
 
 func _enter_tree() -> void:
 	# Set spacing of target zones
@@ -93,7 +94,7 @@ func spawn_letter(pitch) -> Node2D:
 	
 	# Set spawn position
 	letter_instance.global_position = spawn_zone_positions[KeyboardMapping.getLastColIndex()]
-	print("LetterCol: %d for %s" % [KeyboardMapping.getLastColIndex(), letter_char])
+#	print("LetterCol: %d for %s" % [KeyboardMapping.getLastColIndex(), letter_char])
 	
 	#
 	$LetterContainer.add_child(letter_instance)
@@ -112,11 +113,8 @@ func _on_early_zone_area_entered(area: Area2D) -> void:
 
 func _on_perfect_zone_area_entered(area: Area2D) -> void:
 	var letter_node = area.get_parent()
-#	print("%s %s" % [letter_node.name, "bruh"])
 	if letter_node.name.contains("Letter"):
 		letter_node.set_punctuality(perfect)
-#	else:
-#		$StationaryBarLine.pulse(tpb/2)
 
 
 func _on_late_zone_area_entered(area: Area2D) -> void:
@@ -143,7 +141,13 @@ func _on_late_zone_area_exited(area: Area2D) -> void:
 
 func _on_collision_shape_barline_area_entered(area: Area2D) -> void:
 	var barline_node = area.get_parent()
-	if barline_node.name.contains("Barline"):
-		$StationaryBarLine.pulse(tpb*2)
-	
-	deadcenter.emit()
+	if barline_node.name.contains("BarLine"):
+		barline_node.queue_free()
+
+
+func _on_stage_pause() -> void:
+	pass
+
+
+func _on_stage_play() -> void:
+	pass # Replace with function body.

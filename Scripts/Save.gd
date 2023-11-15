@@ -1,15 +1,21 @@
-# Note: This can be called from anywhere inside the tree. This function is
-# path independent.
-# Go through everything in the persist category and ask them to return a
-# dict of relevant variables.
-func save_game(song_number: int, highscore: int):
-	var save_game = FileAccess.open("res://Saves/savegame.save", FileAccess.WRITE)
+extends Node
 
-	# Make new entry
-	var entry = {song_number : highscore}
+var path
+var song_number: int = 3
+var time_scale: float = 1
 
-	# JSON provides a static method to serialized JSON string.
-	var json_string = JSON.stringify(entry)
+func save_score(stage:int, time_scale:float, score:int):
+	path = "stage%d-Scale%.2f.txt" % [stage, time_scale]
+	var file = FileAccess.open("user://%s" % path, FileAccess.WRITE)
+	file.store_64(score)
 
-	# Store the save dictionary as a new line in the save file.
-	save_game.store_line(json_string)
+func load_score(stage:int, time_scale: float):
+	path = "stage%d-Scale%.2f.txt" % [stage, time_scale]
+	var file = FileAccess.open("user://%s" % path, FileAccess.READ)
+	var score: int
+	if (file == null):
+		score = 0
+	else:
+		score = file.get_64()
+	print("Loaded Score: %d" % score)
+	return score

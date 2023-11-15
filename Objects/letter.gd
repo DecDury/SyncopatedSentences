@@ -1,6 +1,7 @@
 extends Node2D
 
 @export var speed: float = 1.0
+var prev_speed: float = 1.0
 
 enum {miss, early, perfect, late}
 var punctuality: int = miss
@@ -22,9 +23,13 @@ func set_punctuality(time: int):
 #-------------------------
 func _physics_process(delta: float) -> void:
 	global_position.y += speed * delta
-
-func _on_area_2d_area_entered(_area: Area2D) -> void:
-	pass
-	#punctuality += 1
-#	print("%s - %s: [Punctuality = %d]" % [name, $text.text, punctuality])
 	
+func pause() -> void:
+	prev_speed = speed
+	speed = 0
+	
+func play() -> void:
+	speed = prev_speed
+
+
+
