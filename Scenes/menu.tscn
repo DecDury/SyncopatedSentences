@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3]
+[gd_scene load_steps=15 format=3 uid="uid://bdx6veob4k5sl"]
 
 [ext_resource type="Theme" uid="uid://djg6g6fr7uadg" path="res://Themes/SS-Theme.tres" id="1_ijq8m"]
 [ext_resource type="Script" path="res://Scripts/menu.gd" id="2_h4107"]
@@ -123,6 +123,10 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
 text = "Start"
 
+[node name="ExtrasButton" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Extras"
+
 [node name="QuitButton" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
@@ -180,6 +184,7 @@ one_shot = true
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/ExtrasButton" to="." method="_on_extras_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="timeout" from="Targets/Target4/Timer" to="Targets/Target4" method="_on_timer_timeout" flags=18]
 [connection signal="timeout" from="Targets/Target7/Timer" to="Targets/Target7" method="_on_timer_timeout" flags=18]

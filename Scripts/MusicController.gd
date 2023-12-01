@@ -43,25 +43,39 @@ func _enter_tree() -> void:
 	
 	# Select Midi file and complementary wav file
 	match song_number:
-		1:
-			### Need to remove this song ###
-			### Midi file may be faulty ###
-			midi_file = "res://Audio/Music/LEAP.json"
-			track_number = 21 # bass
-			music_wav = preload("res://Audio/Music/WAVs/leap.WAV")
+		
 			
-		2:
+		1:
 			midi_file = "res://Audio/Music/boss_battle_#2.json"
 			track_number = 7
 			music_wav = preload("res://Audio/Music/WAVs/boss_battle_#2.WAV")
-		3:
+		2:
 			midi_file = "res://Audio/Music/FinalBossBattle6.json"
 			track_number = 3
 			music_wav = preload("res://Audio/Music/WAVs/Final Boss Battle 6 V2.WAV")
+		
+		3: # ok but buggy
+			midi_file = "res://Audio/Music/boss_battle_9.json"
+			track_number = 3
+			music_wav = preload("res://Audio/Music/WAVs/boss_battle_9_metal_complete.wav")
 		4:
+			midi_file = "res://Audio/Music/fight_for_better_future.json"
+			track_number = 7 # or 3 for lead guitar
+			music_wav = preload("res://Audio/Music/WAVs/fight_for_better_future.wav")
+		
+		5: # broke
+			midi_file = "res://Audio/Music/Long_Away_Home.json"
+			track_number = 11
+			music_wav = preload("res://Audio/Music/WAVs/Long Away Home.wav")
+		6: # broke
+			midi_file = "res://Audio/Music/LEAP.json"
+			track_number = 21 # bass
+			music_wav = preload("res://Audio/Music/WAVs/leap.WAV")
+		7: # broke
 			midi_file = "res://Audio/Music/EndlessPainOfNightmares.json"
 			track_number = 7
-			music_wav = preload("res://Audio/Music/WAVs/Endless Pain of Nightmares.WAV") 
+			music_wav = preload("res://Audio/Music/WAVs/Endless Pain of Nightmares.WAV")
+			
 	
 	$Audio.stream = music_wav
 	$Audio.pitch_scale = time_scale

@@ -1,0 +1,54 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1gtx6ku7vew3"]
+
+[ext_resource type="Script" path="res://Scripts/extras.gd" id="1_d3ocn"]
+
+[node name="Extras" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_d3ocn")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -118.5
+offset_top = -68.0
+offset_right = 118.5
+offset_bottom = 68.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="Stage1" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "1: Long Away Home [8bit]"
+
+[node name="Stage2" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "2: Leap [8bit]"
+
+[node name="Stage3" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "3: Endless Pain of Nightmares"
+
+[node name="BackToMenu" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Return to Menu"
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Stage1" to="." method="_on_stage_1_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Stage2" to="." method="_on_stage_2_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Stage3" to="." method="_on_stage_3_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/BackToMenu" to="." method="_on_back_to_menu_pressed"]

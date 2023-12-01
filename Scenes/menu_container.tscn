@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3 uid="uid://ds37g1ty0g8y1"]
 
 [ext_resource type="Script" path="res://Scripts/menu_container.gd" id="1_77sno"]
 [ext_resource type="AudioStream" uid="uid://c0wptyjyk2wda" path="res://Audio/Music/WAVs/the_end_of_an_era_main_version.wav" id="2_wmgv1"]
-[ext_resource type="PackedScene" path="res://Scenes/menu.tscn" id="3_7u2o8"]
+[ext_resource type="PackedScene" uid="uid://bdx6veob4k5sl" path="res://Scenes/menu.tscn" id="3_7u2o8"]
 [ext_resource type="PackedScene" uid="uid://cd0lc8cmbsr8b" path="res://Scenes/stage_select.tscn" id="4_v4jot"]
 [ext_resource type="PackedScene" uid="uid://dram1ep1fyffc" path="res://Scenes/time_scale.tscn" id="5_11jsu"]
+[ext_resource type="PackedScene" uid="uid://d1gtx6ku7vew3" path="res://Scenes/extras.tscn" id="6_2ri7y"]
 
 [node name="MenuContainer" type="Control"]
 layout_mode = 3
@@ -28,5 +29,9 @@ visible = false
 layout_mode = 1
 
 [node name="TimeScale" parent="." instance=ExtResource("5_11jsu")]
+visible = false
+layout_mode = 1
+
+[node name="Extras" parent="." instance=ExtResource("6_2ri7y")]
 visible = false
 layout_mode = 1

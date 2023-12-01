@@ -20,10 +20,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -118.5
-offset_top = -68.0
-offset_right = 118.5
-offset_bottom = 68.0
+offset_left = -150.5
+offset_top = -85.5
+offset_right = 150.5
+offset_bottom = 85.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -33,22 +33,27 @@ size_flags_horizontal = 4
 
 [node name="Stage1" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "1: LEAP"
+text = "1: Boss Battle #2 [8-bit]"
 
 [node name="Stage2" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "2: BOSS battle 2"
+text = "2: Final Boss Battle 6 V2"
 
 [node name="Stage3" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "3: Final Boss Battle 6"
+text = "3: Boss Battle #9 [Metal]"
 
 [node name="Stage4" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-text = "4: Endless Pain of Nightmares"
+text = "4: Fight for Better Future [Rock/Metal]"
+
+[node name="BackToMenu" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Return to Menu"
 
 [connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Stage1" to="." method="_on_stage_1_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Stage2" to="." method="_on_stage_2_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Stage3" to="." method="_on_stage_3_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Stage4" to="." method="_on_stage_4_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/BackToMenu" to="." method="_on_back_to_menu_pressed"]

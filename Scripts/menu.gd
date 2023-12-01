@@ -20,8 +20,24 @@ func _on_start_button_pressed() -> void:
 		stage_select = load("res://Scenes/stage_select.tscn")
 		get_tree().change_scene_to_packed(stage_select)
 
+func _on_extras_button_pressed() -> void:
+	visible = false
+	var extras
+	var menu_container = get_node("../../MenuContainer")
+	if (menu_container != null):
+		print("In Menu Container")
+		extras = menu_container.find_child("Extras")
+		extras.visible = true
+	else:
+		print("Menu Container Not Found")
+		extras = load("res://Scenes/extras.tscn")
+		get_tree().change_scene_to_packed(extras)
+
 func _on_quit_button_pressed() -> void:
 	get_tree().quit()
+
+
+
 
 
 

@@ -128,7 +128,7 @@ func _on_late_zone_area_exited(area: Area2D) -> void:
 	# node passed targetzones and should be freed
 	var node = area.get_parent() # letter or barline
 	#print("Late Zone Exited: %s" % node.name)
-	#print("%s freed" % letter.name)
+	#print("%s freed" % node.name)
 	
 	# let other nodes know a letter has been missed and the score should be decremented
 #	emit_signal("tooLate")

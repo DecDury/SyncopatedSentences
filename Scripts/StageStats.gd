@@ -10,6 +10,7 @@ func _ready() -> void:
 
 
 func _on_menu_button_pressed() -> void:
+#	var menu_container = load("res://Scenes/menu_container.tscn")
 	get_tree().change_scene_to_packed(menu_container)
 	
 func calc_stats(score: int , raw_score: float, total_notes: int, song_number: int, time_scale: float):

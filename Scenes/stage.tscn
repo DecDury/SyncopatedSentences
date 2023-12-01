@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://Scripts/stage.gd" id="1_nobx4"]
 [ext_resource type="PackedScene" uid="uid://c5p2uvq66fr8m" path="res://Scenes/gui.tscn" id="2_8firy"]
-[ext_resource type="PackedScene" path="res://Scenes/spawn_manager.tscn" id="3_i7wto"]
+[ext_resource type="PackedScene" uid="uid://dqk0m8s6kmbhc" path="res://Scenes/spawn_manager.tscn" id="3_i7wto"]
 [ext_resource type="PackedScene" uid="uid://cfkr0uey6yphi" path="res://Scenes/music_controller.tscn" id="4_4ur6n"]
 [ext_resource type="PackedScene" uid="uid://egy8w3o8l7o" path="res://Scenes/pause_menu.tscn" id="5_vy7n3"]
 
