@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://djg6g6fr7uadg"]
+
+[ext_resource type="FontFile" uid="uid://crdlyccmbma4o" path="res://Fonts/special-elite/SpecialElite.ttf" id="1_ytm3n"]
+
+[resource]
+default_font = ExtResource("1_ytm3n")
+default_font_size = 40

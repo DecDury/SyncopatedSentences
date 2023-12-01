@@ -1,6 +1,77 @@
-[gd_scene load_steps=2 format=3 uid="uid://cdes100qqlsxf"]
+[gd_scene load_steps=15 format=3]
 
-[ext_resource type="Script" path="res://Scripts/menu.gd" id="1_wxipn"]
+[ext_resource type="Theme" uid="uid://djg6g6fr7uadg" path="res://Themes/SS-Theme.tres" id="1_ijq8m"]
+[ext_resource type="Script" path="res://Scripts/menu.gd" id="2_h4107"]
+[ext_resource type="Script" path="res://Scripts/MenuTargets.gd" id="3_ajrc5"]
+[ext_resource type="Texture2D" uid="uid://c8uteuu7w2tao" path="res://Sprites/PulseEnd1x1.png" id="4_mnmb5"]
+[ext_resource type="Texture2D" uid="uid://le4lnqw4uhs8" path="res://Sprites/PulseInbetween1x1.png" id="5_c8iol"]
+[ext_resource type="Texture2D" uid="uid://c228r0ga7ajbs" path="res://Sprites/White1x1.png" id="6_1xxi4"]
+[ext_resource type="PackedScene" uid="uid://brniqwejdf7xj" path="res://Scenes/KeyTarget.tscn" id="7_336kq"]
+[ext_resource type="Script" path="res://Scripts/KeyTarget.gd" id="8_c7s0i"]
+[ext_resource type="Texture2D" uid="uid://b8lnqamcug8td" path="res://Sprites/KeyBackground.png" id="9_w6wfk"]
+[ext_resource type="Texture2D" uid="uid://dfqbf5j6l42ql" path="res://Sprites/KeyBackgroundPerfect.png" id="10_1jld5"]
+[ext_resource type="Texture2D" uid="uid://c8yibgkah5bna" path="res://Sprites/KeyBackgroundIndexFinger.png" id="11_7fp6k"]
+[ext_resource type="Texture2D" uid="uid://bto450ihjgfmf" path="res://Sprites/KeyBackgroundMiss.png" id="12_63xd6"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hm5yu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_mnmb5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_c8iol")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1xxi4")
+}],
+"loop": true,
+"name": &"pulse",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("6_1xxi4")
+}],
+"loop": true,
+"name": &"white",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0vxmy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_w6wfk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("10_1jld5")
+}],
+"loop": true,
+"name": &"hit",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("11_7fp6k")
+}],
+"loop": true,
+"name": &"indexfinger",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("12_63xd6")
+}],
+"loop": true,
+"name": &"miss",
+"speed": 5.0
+}]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -11,12 +82,38 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_wxipn")
+theme = ExtResource("1_ijq8m")
+script = ExtResource("2_h4107")
+
+[node name="Title" type="RichTextLabel" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -221.0
+offset_top = -181.0
+offset_right = 222.0
+offset_bottom = -59.0
+grow_horizontal = 2
+theme = ExtResource("1_ijq8m")
+theme_override_font_sizes/normal_font_size = 60
+bbcode_enabled = true
+text = "[center]Syncopated Sentences[/center]"
+fit_content = true
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -58.5
+offset_top = -2.0
+offset_right = 59.5
+offset_bottom = 100.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -26,17 +123,63 @@ layout_mode = 2
 focus_neighbor_top = NodePath("../QuitButton")
 text = "Start"
 
-[node name="OptionsButton" type="Button" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-text = "Options"
-
 [node name="QuitButton" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 focus_neighbor_bottom = NodePath("../StartButton")
 text = "Quit"
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="Targets" type="Node2D" parent="."]
+position = Vector2(-666, 206)
+script = ExtResource("3_ajrc5")
 
+[node name="Barline" type="AnimatedSprite2D" parent="Targets"]
+position = Vector2(1449, 0)
+scale = Vector2(1500, 2)
+sprite_frames = SubResource("SpriteFrames_hm5yu")
+animation = &"white"
+
+[node name="Target1" parent="Targets" instance=ExtResource("7_336kq")]
+
+[node name="Target2" parent="Targets" instance=ExtResource("7_336kq")]
+
+[node name="Target3" parent="Targets" instance=ExtResource("7_336kq")]
+
+[node name="Target4" type="Node2D" parent="Targets"]
+script = ExtResource("8_c7s0i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Targets/Target4"]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_0vxmy")
+animation = &"indexfinger"
+
+[node name="Timer" type="Timer" parent="Targets/Target4"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Target5" parent="Targets" instance=ExtResource("7_336kq")]
+
+[node name="Target6" parent="Targets" instance=ExtResource("7_336kq")]
+
+[node name="Target7" type="Node2D" parent="Targets"]
+script = ExtResource("8_c7s0i")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Targets/Target7"]
+scale = Vector2(0.25, 0.25)
+sprite_frames = SubResource("SpriteFrames_0vxmy")
+animation = &"indexfinger"
+
+[node name="Timer" type="Timer" parent="Targets/Target7"]
+wait_time = 0.1
+one_shot = true
+
+[node name="Target8" parent="Targets" instance=ExtResource("7_336kq")]
+
+[node name="Target9" parent="Targets" instance=ExtResource("7_336kq")]
+
+[node name="Target10" parent="Targets" instance=ExtResource("7_336kq")]
+
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
-[connection signal="pressed" from="PanelContainer/VBoxContainer/OptionsButton" to="." method="_on_options_button_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="timeout" from="Targets/Target4/Timer" to="Targets/Target4" method="_on_timer_timeout" flags=18]
+[connection signal="timeout" from="Targets/Target7/Timer" to="Targets/Target7" method="_on_timer_timeout" flags=18]

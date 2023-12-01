@@ -1,6 +1,6 @@
 extends Control
 
-@onready var menu = preload("res://Scenes/menu.tscn")
+@onready var menu_container = preload("res://Scenes/menu_container.tscn")
 @onready var resume_button = $PanelContainer/VBoxContainer/ResumeButton
 signal play
 signal restart
@@ -15,11 +15,12 @@ func _on_resume_button_pressed() -> void:
 
 func _on_restart_button_pressed() -> void:
 	emit_signal("restart")
-
-
-func _on_options_button_pressed() -> void:
-	pass # Replace with function body.
+	
+func _on_change_time_scale_button_pressed() -> void:
+	var time_scale = load("res://Scenes/time_scale.tscn")
+	get_tree().change_scene_to_packed(time_scale)
 
 
 func _on_menu_button_pressed() -> void:
-	get_tree().change_scene_to_packed(menu)
+	get_tree().change_scene_to_packed(menu_container)
+

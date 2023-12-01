@@ -1,17 +1,16 @@
 extends Control
 
-@onready var menu = preload("res://Scenes/menu.tscn")
+@onready var menu_container = preload("res://Scenes/menu_container.tscn")
 
 var oldHighscore: int = 1
 
 func _ready() -> void:
 	var menu_button = $PanelContainer/VBoxContainer/MenuButton
 	menu_button.grab_focus()
-	
-	
+
 
 func _on_menu_button_pressed() -> void:
-	get_tree().change_scene_to_packed(menu)
+	get_tree().change_scene_to_packed(menu_container)
 	
 func calc_stats(score: int , raw_score: float, total_notes: int, song_number: int, time_scale: float):
 	var score_label = $PanelContainer/VBoxContainer/Score/Score

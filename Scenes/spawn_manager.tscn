@@ -1,16 +1,16 @@
-[gd_scene load_steps=16 format=3 uid="uid://dsmq2w3tixxtu"]
+[gd_scene load_steps=16 format=3]
 
-[ext_resource type="Script" path="res://Scripts/spawn_manager.gd" id="1_khkx0"]
-[ext_resource type="PackedScene" uid="uid://brniqwejdf7xj" path="res://Scenes/KeyTarget.tscn" id="2_gf6p0"]
-[ext_resource type="Script" path="res://Scripts/KeyTarget.gd" id="3_7leux"]
-[ext_resource type="Texture2D" uid="uid://c8uteuu7w2tao" path="res://Sprites/PulseEnd1x1.png" id="3_8hgtg"]
-[ext_resource type="Texture2D" uid="uid://c228r0ga7ajbs" path="res://Sprites/White1x1.png" id="3_21bl2"]
-[ext_resource type="Texture2D" uid="uid://le4lnqw4uhs8" path="res://Sprites/PulseInbetween1x1.png" id="4_1uq7u"]
-[ext_resource type="Texture2D" uid="uid://b8lnqamcug8td" path="res://Sprites/KeyBackground.png" id="4_vgf2t"]
-[ext_resource type="Texture2D" uid="uid://dfqbf5j6l42ql" path="res://Sprites/KeyBackgroundPerfect.png" id="5_kw46c"]
-[ext_resource type="Texture2D" uid="uid://c8yibgkah5bna" path="res://Sprites/KeyBackgroundIndexFinger.png" id="6_pwypr"]
-[ext_resource type="Texture2D" uid="uid://bto450ihjgfmf" path="res://Sprites/KeyBackgroundMiss.png" id="7_31t0n"]
-[ext_resource type="Script" path="res://Scripts/StationaryBarLine.gd" id="8_ejamr"]
+[ext_resource type="Script" path="res://Scripts/spawn_manager.gd" id="1_djtom"]
+[ext_resource type="Script" path="res://Scripts/StationaryBarLine.gd" id="2_mnmdq"]
+[ext_resource type="Texture2D" uid="uid://c8uteuu7w2tao" path="res://Sprites/PulseEnd1x1.png" id="3_yed8t"]
+[ext_resource type="Texture2D" uid="uid://le4lnqw4uhs8" path="res://Sprites/PulseInbetween1x1.png" id="4_sng75"]
+[ext_resource type="Texture2D" uid="uid://c228r0ga7ajbs" path="res://Sprites/White1x1.png" id="5_fq11y"]
+[ext_resource type="PackedScene" uid="uid://brniqwejdf7xj" path="res://Scenes/KeyTarget.tscn" id="6_8jys1"]
+[ext_resource type="Script" path="res://Scripts/KeyTarget.gd" id="7_wnuxn"]
+[ext_resource type="Texture2D" uid="uid://b8lnqamcug8td" path="res://Sprites/KeyBackground.png" id="8_kmkjp"]
+[ext_resource type="Texture2D" uid="uid://dfqbf5j6l42ql" path="res://Sprites/KeyBackgroundPerfect.png" id="9_o3y53"]
+[ext_resource type="Texture2D" uid="uid://c8yibgkah5bna" path="res://Sprites/KeyBackgroundIndexFinger.png" id="10_ftdnu"]
+[ext_resource type="Texture2D" uid="uid://bto450ihjgfmf" path="res://Sprites/KeyBackgroundMiss.png" id="11_j6y6b"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lf648"]
 size = Vector2(1056.25, 15.1144)
@@ -19,13 +19,13 @@ size = Vector2(1056.25, 15.1144)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_8hgtg")
+"texture": ExtResource("3_yed8t")
 }, {
 "duration": 1.0,
-"texture": ExtResource("4_1uq7u")
+"texture": ExtResource("4_sng75")
 }, {
 "duration": 1.0,
-"texture": ExtResource("3_21bl2")
+"texture": ExtResource("5_fq11y")
 }],
 "loop": true,
 "name": &"pulse",
@@ -33,7 +33,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_21bl2")
+"texture": ExtResource("5_fq11y")
 }],
 "loop": true,
 "name": &"white",
@@ -47,7 +47,7 @@ size = Vector2(20, 16)
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("4_vgf2t")
+"texture": ExtResource("8_kmkjp")
 }],
 "loop": true,
 "name": &"default",
@@ -55,7 +55,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("5_kw46c")
+"texture": ExtResource("9_o3y53")
 }],
 "loop": true,
 "name": &"hit",
@@ -63,7 +63,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("6_pwypr")
+"texture": ExtResource("10_ftdnu")
 }],
 "loop": true,
 "name": &"indexfinger",
@@ -71,7 +71,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("7_31t0n")
+"texture": ExtResource("11_j6y6b")
 }],
 "loop": true,
 "name": &"miss",
@@ -79,7 +79,7 @@ animations = [{
 }]
 
 [node name="SpawnManager" type="Node2D"]
-script = ExtResource("1_khkx0")
+script = ExtResource("1_djtom")
 
 [node name="EarlyZone" type="Area2D" parent="."]
 position = Vector2(575, -85)
@@ -110,7 +110,7 @@ debug_color = Color(0.890196, 0.301961, 0.337255, 0.419608)
 
 [node name="StationaryBarLine" type="Node2D" parent="."]
 position = Vector2(575, 0)
-script = ExtResource("8_ejamr")
+script = ExtResource("2_mnmdq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="StationaryBarLine"]
 position = Vector2(750, 0)
@@ -134,14 +134,14 @@ z_index = 1
 
 [node name="Targets" type="Node2D" parent="."]
 
-[node name="Target1" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target1" parent="Targets" instance=ExtResource("6_8jys1")]
 
-[node name="Target2" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target2" parent="Targets" instance=ExtResource("6_8jys1")]
 
-[node name="Target3" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target3" parent="Targets" instance=ExtResource("6_8jys1")]
 
 [node name="Target4" type="Node2D" parent="Targets"]
-script = ExtResource("3_7leux")
+script = ExtResource("7_wnuxn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Targets/Target4"]
 scale = Vector2(0.25, 0.25)
@@ -152,12 +152,12 @@ animation = &"indexfinger"
 wait_time = 0.1
 one_shot = true
 
-[node name="Target5" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target5" parent="Targets" instance=ExtResource("6_8jys1")]
 
-[node name="Target6" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target6" parent="Targets" instance=ExtResource("6_8jys1")]
 
 [node name="Target7" type="Node2D" parent="Targets"]
-script = ExtResource("3_7leux")
+script = ExtResource("7_wnuxn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Targets/Target7"]
 scale = Vector2(0.25, 0.25)
@@ -168,11 +168,11 @@ animation = &"indexfinger"
 wait_time = 0.1
 one_shot = true
 
-[node name="Target8" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target8" parent="Targets" instance=ExtResource("6_8jys1")]
 
-[node name="Target9" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target9" parent="Targets" instance=ExtResource("6_8jys1")]
 
-[node name="Target10" parent="Targets" instance=ExtResource("2_gf6p0")]
+[node name="Target10" parent="Targets" instance=ExtResource("6_8jys1")]
 
 [node name="LetterContainer" type="Node2D" parent="."]
 z_index = 2

@@ -33,7 +33,7 @@ signal song_finished
 	# track 3 for guitar
 
 var song_number = 3
-var time_scale: float = 0.8
+var time_scale: float = 1
 
 
 func _enter_tree() -> void:
@@ -58,6 +58,10 @@ func _enter_tree() -> void:
 			midi_file = "res://Audio/Music/FinalBossBattle6.json"
 			track_number = 3
 			music_wav = preload("res://Audio/Music/WAVs/Final Boss Battle 6 V2.WAV")
+		4:
+			midi_file = "res://Audio/Music/EndlessPainOfNightmares.json"
+			track_number = 7
+			music_wav = preload("res://Audio/Music/WAVs/Endless Pain of Nightmares.WAV") 
 	
 	$Audio.stream = music_wav
 	$Audio.pitch_scale = time_scale

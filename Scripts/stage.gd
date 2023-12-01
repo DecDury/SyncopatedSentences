@@ -150,7 +150,7 @@ func _input(event: InputEvent) -> void:
 			emit_signal("pause")
 #			$SpawnManager.get_tree().paused = true
 			pause_menu.visible = true
-			pause_menu.resume_button.grab_focus()
+			pause_menu.get_node("PanelContainer/VBoxContainer/ResumeButton").grab_focus()
 	
 		# Get target index for leter miss or hit animation
 		var target_index = KeyboardMapping.getIndexForCollumn(key_typed)

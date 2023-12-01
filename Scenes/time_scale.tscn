@@ -37,5 +37,6 @@ alignment = 1
 layout_mode = 2
 text = "Done"
 
+[connection signal="visibility_changed" from="." to="." method="_on_visibility_changed"]
 [connection signal="value_changed" from="PanelContainer/HBoxContainer/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="pressed" from="PanelContainer/HBoxContainer/Done" to="." method="_on_done_pressed"]
